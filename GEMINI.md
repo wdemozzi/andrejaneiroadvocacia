@@ -116,17 +116,24 @@ O escritório conta com um **Painel de Gestão de Conteúdo (CMS)** integrado pa
 - **Sessão:** Armazenada via `sessionStorage` e `localStorage` com expiração e guarda de rota segura.
 
 ### ⚙️ Arquitetura Híbrida (Opção 1)
-1. **Local-First Imediato (Zero Fricção):**
+1. **Local-First Imediato (Zero Fricção & CORS-Free):**
    - O painel funciona imediatamente sem necessidade de configurações de backend.
-   - Sementes padrão (`data/artigos.json` e `data/faq.json`) carregam automaticamente na primeira execução.
+   - O módulo `data/default-data.js` inicializa os 3 artigos e as 10 perguntas garantindo carregamento imediato sem bloqueio de CORS mesmo ao abrir arquivos diretamente no Windows (`file:///`).
    - Modificações persistem no navegador em `localStorage['ja_artigos']` e `localStorage['ja_faq']`.
-2. **Sincronização em Nuvem (Supabase / PostgreSQL Gratuito):**
+2. **Upload de Imagem do Computador (com Compressão Canvas):**
+   - Dropzone interativo no formulário de artigos com suporte a clique e *drag & drop* (JPG, PNG, WEBP).
+   - Otimização automática no cliente via HTML5 `<canvas>` (redimensionamento máx 1200px, JPEG 0.84, ~120KB-200KB em Base64).
+   - Elimina dependência de servidores de upload de mídia e evita estouro de cota de memória local.
+   - Suporte simultâneo a links externos da web e biblioteca rápida de fotos jurídicas.
+3. **Sincronização em Nuvem (Supabase / PostgreSQL Gratuito):**
    - Na aba **Nuvem & Supabase**, é possível inserir a `Project URL` e a `anon public key`.
    - Script SQL com um clique disponível no próprio painel para criar as tabelas `artigos` e `faq` com Row Level Security (RLS) habilitada para leitura pública.
    - Sincronização bidirecional em segundo plano.
-3. **Hidratação do Site Público:**
+4. **Hidratação do Site Público:**
    - O `index.html` exibe o conteúdo estático inicial para garantir SEO e indexação pelo Google.
    - O `script.js` hidrata dinamicamente as Dobras 9 (Artigos) e 10 (FAQ) caso novos artigos ou perguntas tenham sido publicados no CMS.
-4. **Leitor Dinâmico de Artigos (`artigos/artigo.html`):**
+   - Acesso rápido garantido pelo link `Painel CMS` com cadeado no rodapé.
+5. **Leitor Dinâmico de Artigos (`artigos/artigo.html`):**
    - Artigos novos criados pelo painel são renderizados dinamicamente pelo leitor via parâmetro `?slug=meu-artigo`, mantendo a tipografia editorial nobre, cabeçalho glassmorphism e CTA com lead tracking no WhatsApp.
+
 
