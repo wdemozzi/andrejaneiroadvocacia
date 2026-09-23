@@ -20,26 +20,27 @@ if (typeof Lenis !== 'undefined') {
     infinite: false,
     autoRaf: true,
   });
-
-  // Conectar âncoras para rolagem fluida e precisa compensando o header (-80px)
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
-      if (targetId && targetId !== '#' && targetId.startsWith('#')) {
-        const targetEl = document.querySelector(targetId);
-        if (targetEl) {
-          e.preventDefault();
-          lenis.scrollTo(targetEl, {
-            offset: -80,
-            duration: 1.25,
-          });
-        }
-      }
-    });
-  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Conectar âncoras para rolagem fluida e precisa compensando o header (-80px)
+  if (lenis) {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId && targetId !== '#' && targetId.startsWith('#')) {
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            lenis.scrollTo(targetEl, {
+              offset: -80,
+              duration: 1.25,
+            });
+          }
+        }
+      });
+    });
+  }
   // 1. Inicializar Ícones Lucide
   if (window.lucide) {
     window.lucide.createIcons();
