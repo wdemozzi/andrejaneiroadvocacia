@@ -335,7 +335,7 @@ function openNewArticleEditor() {
   document.getElementById('btn-save-label').textContent = 'Salvar & Publicar';
 
   updateCharCount();
-  updateImagePreview();
+  clearSelectedImage(false);
   switchTab('tab-editor');
 }
 
@@ -367,7 +367,7 @@ function editArticle(id) {
   document.getElementById('btn-save-label').textContent = 'Atualizar Artigo';
 
   updateCharCount();
-  updateImagePreview();
+  displayImagePreview(article.imagem || '');
   switchTab('tab-editor');
 }
 
@@ -497,30 +497,152 @@ function updateCharCount() {
   }
 }
 
-function updateImagePreview() {
-  const url = document.getElementById('article-image').value.trim();
-  const preview = document.getElementById('image-preview');
-  const placeholder = document.getElementById('image-placeholder');
+// ============================================================================
+// UPLOAD DE IMAGEM DO COMPUTADOR (LOCAL) COM COMPRESSÃO INTELIGENTE CANVAS
+// ============================================================================
+function handleImageFileSelect(event) {
+  const file = event.target.files && event.target.files[0];
+  if (file) {
+    compressAndLoadImage(file);
+  }
+}
 
-  if (url) {
-    preview.src = url;
-    preview.onload = () => {
-      preview.classList.remove('hidden');
-      placeholder.classList.add('hidden');
+function handleImageDragOver(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  const dropzone = document.getElementById('image-dropzone');
+  if (dropzone) {
+    dropzone.classList.add('border-gold', 'bg-gold-light/40');
+  }
+}
+
+function handleImageDragLeave(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  const dropzone = document.getElementById('image-dropzone');
+  if (dropzone) {
+    dropzone.classList.remove('border-gold', 'bg-gold-light/40');
+  }
+}
+
+function handleImageDrop(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  const dropzone = document.getElementById('image-dropzone');
+  if (dropzone) {
+    dropzone.classList.remove('border-gold', 'bg-gold-light/40');
+  }
+
+  const dt = event.dataTransfer;
+  const file = dt && dt.files && dt.files[0];
+  if (file) {
+    compressAndLoadImage(file);
+  }
+}
+
+function compressAndLoadImage(file) {
+  if (!file || !file.type.startsWith('image/')) {
+    showToast('Por favor, selecione um arquivo de imagem válido (JPG, PNG ou WEBP).', 'error');
+    return;
+  }
+
+  showToast('Otimizando imagem para o site...', 'info');
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      // Redimensionamento proporcional com Canvas (máx 1200px de largura/altura)
+      const canvas = document.createElement('canvas');
+      const maxDim = 1200;
+      let width = img.width;
+      let height = img.height;
+
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // Converte para JPEG com qualidade 0.84 (excelente nitidez e peso leve ~120KB)
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.84);
+
+      const imageInput = document.getElementById('article-image');
+      if (imageInput) {
+        imageInput.value = dataUrl;
+      }
+
+      displayImagePreview(dataUrl);
+      showToast('Imagem carregada do computador com sucesso!', 'success');
     };
-    preview.onerror = () => {
-      preview.classList.add('hidden');
-      placeholder.classList.remove('hidden');
+
+    img.onerror = function() {
+      showToast('Erro ao ler a imagem. Tente outro arquivo.', 'error');
     };
+
+    img.src = e.target.result;
+  };
+
+  reader.onerror = function() {
+    showToast('Falha ao abrir arquivo do computador.', 'error');
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function displayImagePreview(src) {
+  const preview = document.getElementById('image-preview');
+  const emptyState = document.getElementById('dropzone-empty');
+  const previewContainer = document.getElementById('dropzone-preview-container');
+  const removeBtn = document.getElementById('btn-remove-image');
+
+  if (src && src.trim()) {
+    if (preview) preview.src = src;
+    if (emptyState) emptyState.classList.add('hidden');
+    if (previewContainer) previewContainer.classList.remove('hidden');
+    if (removeBtn) removeBtn.classList.remove('hidden');
   } else {
-    preview.classList.add('hidden');
-    placeholder.classList.remove('hidden');
+    if (preview) preview.src = '';
+    if (emptyState) emptyState.classList.remove('hidden');
+    if (previewContainer) previewContainer.classList.add('hidden');
+    if (removeBtn) removeBtn.classList.add('hidden');
+  }
+
+  if (window.lucide) window.lucide.createIcons();
+}
+
+function handleUrlInputChange() {
+  const url = (document.getElementById('article-image')?.value || '').trim();
+  displayImagePreview(url);
+}
+
+function clearSelectedImage(showNotification = true) {
+  const imageInput = document.getElementById('article-image');
+  const fileInput = document.getElementById('article-file-input');
+
+  if (imageInput) imageInput.value = '';
+  if (fileInput) fileInput.value = '';
+
+  displayImagePreview('');
+  if (showNotification) {
+    showToast('Imagem removida.');
   }
 }
 
 function setSampleImage(url) {
-  document.getElementById('article-image').value = url;
-  updateImagePreview();
+  const imageInput = document.getElementById('article-image');
+  if (imageInput) imageInput.value = url;
+  displayImagePreview(url);
+  showToast('Foto jurídica sugerida aplicada!');
 }
 
 function insertTag(openTag, closeTag) {
