@@ -413,7 +413,7 @@ const htmlContent = `<!DOCTYPE html>
             <td style="text-align: center;"><strong>Dobra 0</strong></td>
             <td><strong>Header Glassmorphism</strong></td>
             <td>Autoridade imediata e acessibilidade</td>
-            <td>Monograma JA, registro OAB/PR duplo, badge de status ("Atendimento Disponível") e CTA WhatsApp.</td>
+            <td>Monograma JA original, menu limpo e dinâmico, badge de status ("Atendimento Disponível") e CTA WhatsApp.</td>
           </tr>
           <tr>
             <td style="text-align: center;"><strong>Dobra 1</strong></td>
@@ -522,7 +522,7 @@ const htmlContent = `<!DOCTYPE html>
         <h3 style="font-size: 14px; font-weight: 700; color: #0D1B2A; margin: 4px 0;">Header Glassmorphism</h3>
         <p style="font-size: 10px; color: #64748B; margin-bottom: 8px;">Fixado no topo com efeito vidro fosco sofisticado.</p>
         <div style="background: #FAF9F5; border: 1px solid #EAE5DE; border-radius: 6px; padding: 8px; font-size: 9.5px; color: #334155;">
-          <div style="margin-bottom: 4px;">• <strong>Logotipo em 3 Níveis:</strong> Nome + Especialidade + Registros OAB.</div>
+          <div style="margin-bottom: 4px;">• <strong>Logotipo Fiel Original:</strong> Monograma JA em harmonia diagonal e tipografia original, mantendo o menu leve e limpo (sem números de OAB no topo).</div>
           <div style="margin-bottom: 4px;">• <strong>Indicador Ativo:</strong> Ponto verde pulsante informando plantão de atendimento.</div>
           <div style="margin-bottom: 4px;">• <strong>Atalhos Dinâmicos:</strong> Menu âncora suave para todas as seções.</div>
           <div>• <strong>Botão de Ação:</strong> WhatsApp direto para triagem rápida.</div>

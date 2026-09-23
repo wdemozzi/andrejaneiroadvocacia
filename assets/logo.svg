@@ -1,32 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 80" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 85" fill="none">
   <defs>
     <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#E5BE6B" />
-      <stop offset="50%" stop-color="#D4A359" />
-      <stop offset="100%" stop-color="#B8860B" />
+      <stop offset="0%" stop-color="#F3B958" />
+      <stop offset="50%" stop-color="#E5A844" />
+      <stop offset="100%" stop-color="#C98826" />
     </linearGradient>
   </defs>
 
-  <!-- Monograma Estilizado J + A -->
-  <g transform="translate(10, 8)">
-    <!-- Letra J: Haste longa curvando para a esquerda na base -->
-    <path d="M 36 2 L 36 48 C 36 58, 26 64, 14 62 C 6 60, 2 54, 0 48" 
-          stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <!-- Monograma Original Fiel J + A -->
+  <g id="monogram" transform="translate(6, 0)">
+    <!-- Letra J: Haste diagonal paralela à perna esquerda do A com gancho gracioso na base -->
+    <path d="M 47 11 L 22 71 C 19 79, 13 88, 4 86" 
+          stroke="url(#goldGrad)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
     
-    <!-- Letra A: Triângulo elegante sobrepondo o J -->
-    <path d="M 28 2 L 8 58" 
-          stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" fill="none" />
-    <path d="M 28 2 L 48 58" 
-          stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" fill="none" />
-    <path d="M 16 38 L 40 38" 
-          stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round" fill="none" />
+    <!-- Letra A: Haste esquerda (fina) -->
+    <path d="M 57 11 L 31 88" 
+          stroke="url(#goldGrad)" stroke-width="3.6" stroke-linecap="round" fill="none" />
+    
+    <!-- Letra A: Haste direita (forte) -->
+    <path d="M 57 11 L 86 88" 
+          stroke="url(#goldGrad)" stroke-width="4.4" stroke-linecap="round" fill="none" />
+    
+    <!-- Letra A: Barra horizontal -->
+    <path d="M 41 57 L 76 57" 
+          stroke="url(#goldGrad)" stroke-width="3.2" stroke-linecap="round" fill="none" />
   </g>
 
-  <!-- Tipografia "Janeiro Advocacia & Consultoria" -->
-  <text x="75" y="36" font-family="'Cormorant Garamond', 'Playfair Display', Georgia, serif" font-size="24" font-weight="600" fill="url(#goldGrad)" letter-spacing="0.5">
+  <!-- Tipografia Original "Janeiro Advocacia & Consultoria" -->
+  <text x="110" y="38" font-family="'Cormorant Garamond', 'Georgia', serif" font-size="25" font-weight="700" fill="url(#goldGrad)" letter-spacing="0.4">
     Janeiro Advocacia
   </text>
-  <text x="75" y="58" font-family="'Cormorant Garamond', 'Playfair Display', Georgia, serif" font-size="20" font-weight="500" fill="url(#goldGrad)" letter-spacing="0.5">
+  <text x="110" y="65" font-family="'Cormorant Garamond', 'Georgia', serif" font-size="22" font-weight="600" fill="url(#goldGrad)" letter-spacing="0.4">
     &amp; Consultoria
   </text>
 </svg>

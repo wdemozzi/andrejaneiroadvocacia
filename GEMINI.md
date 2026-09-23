@@ -54,17 +54,20 @@
 
 ## 🛡️ 5. Regras de Ouro de Design & Comunicação (Anti-Clichê)
 
-1. **Logotipo Oficial em Três Linhas:**
-   - Linha 1: `JANEIRO ADVOCACIA & CONSULTORIA`
-   - Linha 2: `ESPECIALIZAÇÃO EM DIREITO PREVIDENCIÁRIO`
-   - Linha 3: `OAB/PR 84.395 • OAB/PR 82.230`
-2. **Proibição de Imagens Clichês:**
+1. **Logotipo Oficial Fiel & Header Limpo:**
+   - O logotipo é composto pelo monograma original fiel `JA` (com haste diagonal e curva graciosa na base) acompanhado de `Janeiro Advocacia & Consultoria`.
+   - **Regra de Ouro do Menu:** O cabeçalho / menu de navegação principal deve permanecer limpo e focado na usabilidade, **sem a inclusão dos números de OAB**. As inscrições da OAB pertencem institucionalmente à seção Sobre os Sócios (Dobra 6) e ao rodapé (Dobra 12).
+2. **Proibição Absoluta de Imagens Clichês:**
    - Proibido usar martelos de juiz de plástico, balanças douradas genéricas 3D ou fotos stock de pessoas americanas em tribunais.
-   - Todo material visual deve valorizar os retratos reais dos advogados Dr. André e Dra. Isis, a elegância do monograma `JA` e o acolhimento do segurado.
+   - Todo material visual deve valorizar os retratos reais dos advogados Dr. André e Dra. Isis, a elegância do monograma `JA` original e o acolhimento do segurado.
 3. **Lead Tracking Obrigatório no WhatsApp:**
    - Nenhum link para o WhatsApp pode ser aberto em branco. Deve conter o parâmetro `?text=` com a mensagem pré-formatada indicando o ponto de origem exato (Hero, Benefício Incapacidade, Planejamento, Aposentadoria Especial, Quiz Interativo ou Rodapé).
-4. **Respeito ao Código de Ética e Disciplina da OAB (Provimento 205/2021):**
-   - Comunicação estritamente informativa, consultiva e de esclarecimento de direitos, sem mercantilização, promessas infundadas de vitória rápida ou captação indevida.
+4. **Conformidade Estrita com o Provimento nº 205/2021 do CFOAB:**
+   - **Caráter Meramente Informativo (Art. 2º):** Conteúdo focado na educação e esclarecimento de direitos previdenciários, com sobriedade e moderação.
+   - **Vedação de Mercantilização (Art. 3º e 4º):** Proibição total de preços, gratuidades, descontos ou formas de pagamento no website voltado aos segurados.
+   - **Obrigação de Meio (Sem Promessa de Êxito):** Foco na prestação de serviço técnico de excelência ("buscar o melhor benefício cabível"), sem prometer causa ganha ou resultados pré-determinados.
+   - **Ferramentas de Triagem / Quiz (Art. 4º, § 2º):** O Quiz interativo deve conter aviso explícito informando seu caráter de triagem preliminar automatizada, sendo a consulta formal realizada individualmente pelo advogado.
+   - **Identificação Profissional (Art. 4º, § 1º):** Identificação clara e digna dos advogados responsáveis (Dr. André OAB/PR 84.395 e Dra. Isis OAB/PR 82.230) nos locais apropriados do site.
 
 ---
 
