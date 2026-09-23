@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://janeiroadvocacia.com.br/</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://janeiroadvocacia.com.br/assets/dr-andre.jpg</image:loc>
+      <image:title>Dr. André Luiz Leonardi Janeiro - Advogado Previdenciário OAB/PR 84.395</image:title>
+      <image:caption>Dr. André Luiz Leonardi Janeiro, sócio fundador da Janeiro Advocacia &amp; Consultoria, especialista em Direito Previdenciário pela PUC/PR.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://janeiroadvocacia.com.br/assets/dra-isis.png</image:loc>
+      <image:title>Dra. Isis Nunes Dias Janeiro - Advogada Previdenciária OAB/PR 82.230</image:title>
+      <image:caption>Dra. Isis Nunes Dias Janeiro, sócia da Janeiro Advocacia &amp; Consultoria, especialista em Processo Civil e Advocacia Previdenciária.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://janeiroadvocacia.com.br/assets/logo.svg</image:loc>
+      <image:title>Janeiro Advocacia &amp; Consultoria - Logotipo Oficial</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://janeiroadvocacia.com.br/artigos/aposentadoria-tempo-contribuicao-regras-transicao.html</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://janeiroadvocacia.com.br/artigos/planejamento-previdenciario-como-funciona.html</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://janeiroadvocacia.com.br/artigos/auxilio-doenca-incapacidade-negado-inss.html</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
