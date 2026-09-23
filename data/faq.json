@@ -1,0 +1,52 @@
+[
+  {
+    "id": "faq-1",
+    "pergunta": "1. O que é o planejamento previdenciário e por que ele é tão importante?",
+    "resposta": "O planejamento previdenciário é uma consultoria aprofundada que analisa todo o seu histórico contributivo. Ele compara as regras de transição da Reforma, identifica erros no CNIS e projeta exatamente em qual data e com qual valor de contribuição você alcançará o benefício mais vantajoso, evitando que você perca até 40% da renda vitalícia."
+  },
+  {
+    "id": "faq-2",
+    "pergunta": "2. Posso me aposentar mesmo que falte algum tempo de contribuição?",
+    "resposta": "Muitas vezes sim! Grande parte dos segurados tem períodos não averbados no INSS que podem ser resgatados: trabalho rural em regime familiar na infância/juventude, serviço militar obrigatório, tempo como aluno-aprendiz ou atividades com insalubridade/periculosidade que podem ser convertidas com acréscimo de até 40% de tempo comum."
+  },
+  {
+    "id": "faq-3",
+    "pergunta": "3. Como funciona a comprovação do trabalho rural?",
+    "resposta": "O tempo de trabalho rural na economia familiar pode ser comprovado por meio de início de prova material (certidões de nascimento, casamento, notas fiscais de produtor dos pais, histórico escolar rural, escritura de terras) complementado por auto-declaração e testemunhas, permitindo antecipar a aposentadoria ou aumentar o valor do cálculo."
+  },
+  {
+    "id": "faq-4",
+    "pergunta": "4. Tive meu auxílio-doença negado na perícia do INSS. E agora?",
+    "resposta": "O indeferimento na perícia administrativa é muito comum. Nesses casos, o caminho mais eficaz é ingressar com uma ação na Justiça Federal. Na Justiça, a perícia é realizada por um médico especialista na sua doença (ortopedista, psiquiatra, etc.) e, sendo reconhecida a incapacidade, você recebe todos os valores retroativos desde a data em que o INSS negou."
+  },
+  {
+    "id": "faq-5",
+    "pergunta": "5. O que é o BPC/LOAS e quem tem direito a esse benefício?",
+    "resposta": "O BPC (Benefício de Prestação Continuada) é um pagamento mensal de um salário mínimo garantido a idosos com 65 anos ou mais e a pessoas com deficiência de qualquer idade, desde que comprovem baixa renda familiar per capita. Uma das grandes vantagens do BPC é que não exige nenhuma contribuição prévia ao INSS."
+  },
+  {
+    "id": "faq-6",
+    "pergunta": "6. Como funciona o atendimento online para quem não mora em Umuarama - PR?",
+    "resposta": "Nosso escritório possui infraestrutura 100% digital e segura. O segurado de qualquer cidade do Paraná, de outros estados ou brasileiros residentes no exterior é atendido por WhatsApp e videoconferência. Documentos e procurações são assinados digitalmente com validade jurídica pelo próprio celular, com total conforto e sem filas."
+  },
+  {
+    "id": "faq-7",
+    "pergunta": "7. Por que o processo no INSS demora tanto e o que pode ser feito?",
+    "resposta": "O INSS enfrenta filas históricas que frequentemente superam os prazos legais de 30 a 90 dias. Quando a demora se torna abusiva e ilegal, nosso escritório pode impetrar um Mandado de Segurança na Justiça Federal para que o juiz obrigue o INSS a emitir a decisão sob pena de multa diária."
+  },
+  {
+    "id": "faq-8",
+    "pergunta": "8. Quem já está aposentado pode pedir revisão do valor do benefício?",
+    "resposta": "Sim, desde que a concessão tenha ocorrido há menos de 10 anos (prazo de decadência). Analisamos se o INSS deixou de computar períodos insalubres, salários maiores concomitantes, decisões trabalhistas ou erros no cálculo da média contributiva."
+  },
+  {
+    "id": "faq-9",
+    "pergunta": "9. Servidor público concursado (RPPS) também pode fazer planejamento?",
+    "resposta": "Sim, e é altamente recomendado. O planejamento para servidores públicos analisa paridade, integralidade, regras de transição próprias e a possibilidade de compensação financeira entre o regime geral (INSS) e o regime próprio, inclusive permitindo acumulação de duas aposentadorias lícitas."
+  },
+  {
+    "id": "faq-10",
+    "pergunta": "10. Como são cobrados os honorários advocatícios?",
+    "resposta": "Nossos honorários seguem rigorosamente os parâmetros de ética e moderação do Código de Ética e da Tabela de Honorários da OAB/PR. Na maioria das ações concessórias e revisionais, os honorários incidem sobre o êxito e parcelas vencidas; para o planejamento previdenciário consultivo, os valores são alinhados previamente com clareza e transparência contratual."
+  }
+]

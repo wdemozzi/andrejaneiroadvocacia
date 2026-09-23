@@ -102,3 +102,31 @@
 - **Procedimento para Atualizações Futuras:**
   - Qualquer novo artigo deve ser adicionado ao diretório `artigos/`, listado no `index.html` e registrado no `sitemap.xml`.
   - Manter sempre os links de imagem no `sitemap.xml` atualizados.
+
+---
+
+## 💻 8. Painel Administrativo (CMS) & Arquitetura de Dados
+
+O escritório conta com um **Painel de Gestão de Conteúdo (CMS)** integrado para que os advogados possam criar, editar e excluir artigos do blog e perguntas do FAQ sem necessidade de programar.
+
+### 🔑 Acesso Administrativo
+- **URL do Portal:** `admin/login.html` (ou via link discreto no rodapé do site principal)
+- **E-mail Padrão:** `contato@janeiroadvocacia.com.br`
+- **Senha Padrão Inicial:** `janeiro@2026` (personalizável via localStorage `ja_admin_password`)
+- **Sessão:** Armazenada via `sessionStorage` e `localStorage` com expiração e guarda de rota segura.
+
+### ⚙️ Arquitetura Híbrida (Opção 1)
+1. **Local-First Imediato (Zero Fricção):**
+   - O painel funciona imediatamente sem necessidade de configurações de backend.
+   - Sementes padrão (`data/artigos.json` e `data/faq.json`) carregam automaticamente na primeira execução.
+   - Modificações persistem no navegador em `localStorage['ja_artigos']` e `localStorage['ja_faq']`.
+2. **Sincronização em Nuvem (Supabase / PostgreSQL Gratuito):**
+   - Na aba **Nuvem & Supabase**, é possível inserir a `Project URL` e a `anon public key`.
+   - Script SQL com um clique disponível no próprio painel para criar as tabelas `artigos` e `faq` com Row Level Security (RLS) habilitada para leitura pública.
+   - Sincronização bidirecional em segundo plano.
+3. **Hidratação do Site Público:**
+   - O `index.html` exibe o conteúdo estático inicial para garantir SEO e indexação pelo Google.
+   - O `script.js` hidrata dinamicamente as Dobras 9 (Artigos) e 10 (FAQ) caso novos artigos ou perguntas tenham sido publicados no CMS.
+4. **Leitor Dinâmico de Artigos (`artigos/artigo.html`):**
+   - Artigos novos criados pelo painel são renderizados dinamicamente pelo leitor via parâmetro `?slug=meu-artigo`, mantendo a tipografia editorial nobre, cabeçalho glassmorphism e CTA com lead tracking no WhatsApp.
+

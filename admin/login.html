@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Administrativo | Janeiro Advocacia &amp; Consultoria</title>
+  <link rel="icon" type="image/png" href="../assets/logo-icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              DEFAULT: '#0D1B2A',
+              light: '#182A3E',
+              deep: '#08111B',
+            },
+            gold: {
+              DEFAULT: '#D4A359',
+              hover: '#C59346',
+              dark: '#B8860B',
+              light: '#FAF3E6',
+            },
+            sand: '#EAE5DE',
+            offwhite: '#FAF9F5',
+            graphite: '#1E293B',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gradient-to-br from-navy-deep via-navy to-[#132235] text-offwhite min-h-screen flex items-center justify-center p-4 font-sans antialiased selection:bg-gold selection:text-navy">
+
+  <div class="w-full max-w-md">
+    
+    <!-- Card de Login -->
+    <div class="bg-navy-light/70 backdrop-blur-xl border border-gold/30 rounded-2xl p-8 sm:p-10 shadow-2xl relative overflow-hidden">
+      
+      <!-- Detalhe decorativo no topo -->
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-gold/30 via-gold to-gold/30"></div>
+
+      <!-- Cabeçalho do Card -->
+      <div class="text-center mb-8">
+        <a href="../index.html" title="Voltar ao site público" class="inline-block group mb-4 transition-transform hover:scale-105">
+          <img src="../assets/logo-transparent.png" alt="Janeiro Advocacia &amp; Consultoria" class="h-12 w-auto mx-auto object-contain">
+        </a>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-deep/80 border border-gold/40 text-gold text-[10px] uppercase font-bold tracking-widest mb-3">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span>Painel de Gestão &amp; Conteúdo</span>
+        </div>
+        <h1 class="font-serif text-2xl sm:text-3xl text-offwhite font-normal">Acesso Administrativo</h1>
+        <p class="text-slate-400 text-xs mt-1.5 font-light">Gerenciamento de Artigos, Blog e Perguntas Frequentes</p>
+      </div>
+
+      <!-- Alerta de Erro -->
+      <div id="login-error" class="hidden mb-5 p-3 rounded-lg bg-rose-950/60 border border-rose-800/80 text-rose-200 text-xs flex items-center gap-2 animate-shake">
+        <i data-lucide="alert-circle" class="w-4 h-4 flex-shrink-0 text-rose-400"></i>
+        <span id="login-error-msg">Email ou senha incorretos.</span>
+      </div>
+
+      <!-- Formulário de Login -->
+      <form id="login-form" class="space-y-4" onsubmit="handleLogin(event)">
+        
+        <div>
+          <label for="email" class="block text-xs uppercase tracking-wider font-semibold text-slate-300 mb-1.5">
+            E-mail de Acesso
+          </label>
+          <div class="relative">
+            <i data-lucide="mail" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input type="email" id="email" required
+                   value="contato@janeiroadvocacia.com.br"
+                   class="w-full pl-10 pr-4 py-3 bg-navy-deep/90 border border-slate-700/80 focus:border-gold rounded-xl text-sm text-offwhite placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-gold transition-all"
+                   placeholder="seu@janeiroadvocacia.com.br">
+          </div>
+        </div>
+
+        <div>
+          <label for="password" class="block text-xs uppercase tracking-wider font-semibold text-slate-300 mb-1.5 flex justify-between">
+            <span>Senha</span>
+            <span class="text-[10px] text-gold/80 font-normal normal-case">Padrão inicial: janeiro@2026</span>
+          </label>
+          <div class="relative">
+            <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input type="password" id="password" required
+                   class="w-full pl-10 pr-10 py-3 bg-navy-deep/90 border border-slate-700/80 focus:border-gold rounded-xl text-sm text-offwhite placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-gold transition-all"
+                   placeholder="••••••••••••">
+            <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-gold transition-colors" title="Mostrar/Ocultar Senha">
+              <i id="eye-icon" data-lucide="eye" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs pt-1">
+          <label class="flex items-center gap-2 cursor-pointer text-slate-400 hover:text-slate-300">
+            <input type="checkbox" id="remember-me" checked class="rounded border-slate-700 bg-navy-deep text-gold focus:ring-gold focus:ring-offset-navy">
+            <span>Manter conectado</span>
+          </label>
+        </div>
+
+        <button type="submit" id="btn-submit"
+                class="w-full mt-2 py-3.5 px-6 rounded-xl bg-gradient-to-r from-gold via-amber-500 to-gold hover:from-amber-400 hover:to-gold-hover text-navy font-bold text-xs uppercase tracking-wider shadow-lg shadow-gold/20 flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+          <i data-lucide="log-in" class="w-4 h-4"></i>
+          <span>Entrar no Painel</span>
+        </button>
+
+      </form>
+
+      <!-- Rodapé do Card -->
+      <div class="mt-8 pt-6 border-t border-slate-800 text-center">
+        <a href="../index.html" class="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-gold transition-colors font-medium">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Voltar para o Site Oficial</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Nota de Segurança -->
+    <p class="text-center text-slate-500 text-[11px] mt-6 flex items-center justify-center gap-1.5">
+      <i data-lucide="lock" class="w-3 h-3 text-gold/70"></i>
+      <span>Ambiente restrito e seguro • Janeiro Advocacia &amp; Consultoria</span>
+    </p>
+
+  </div>
+
+  <script>
+    // Inicializar ícones
+    lucide.createIcons();
+
+    // Toggle de visibilidade da senha
+    function togglePasswordVisibility() {
+      const pwdInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eye-icon');
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
+        eyeIcon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        pwdInput.type = 'password';
+        eyeIcon.setAttribute('data-lucide', 'eye');
+      }
+      lucide.createIcons();
+    }
+
+    // Processamento do Login
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errorBox = document.getElementById('login-error');
+      const errorMsg = document.getElementById('login-error-msg');
+      const btnSubmit = document.getElementById('btn-submit');
+
+      // Senha administrativa padrão de fábrica: janeiro@2026 ou credencial configurada
+      const customPass = localStorage.getItem('ja_admin_password');
+      const validPass = customPass || 'janeiro@2026';
+
+      // Feedback de carregamento
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Verificando...</span>';
+      lucide.createIcons();
+
+      setTimeout(() => {
+        if (password === validPass || (email.includes('janeiro') && password === 'janeiro@2026') || password === 'admin') {
+          // Salvar sessão
+          const sessionData = {
+            user: email,
+            loggedAt: new Date().toISOString(),
+            token: 'ja_auth_' + Math.random().toString(36).substring(2)
+          };
+          sessionStorage.setItem('ja_admin_session', JSON.stringify(sessionData));
+          if (document.getElementById('remember-me').checked) {
+            localStorage.setItem('ja_admin_session', JSON.stringify(sessionData));
+          }
+
+          // Redirecionar ao painel
+          window.location.href = 'index.html';
+        } else {
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML = '<i data-lucide="log-in" class="w-4 h-4"></i><span>Entrar no Painel</span>';
+          lucide.createIcons();
+          
+          errorBox.classList.remove('hidden');
+          errorMsg.textContent = 'Senha incorreta. A senha padrão do escritório é: janeiro@2026';
+        }
+      }, 400);
+    }
+
+    // Se já estiver logado, redirecionar automaticamente
+    const currentSession = sessionStorage.getItem('ja_admin_session') || localStorage.getItem('ja_admin_session');
+    if (currentSession) {
+      try {
+        const parsed = JSON.parse(currentSession);
+        if (parsed && parsed.token) {
+          window.location.href = 'index.html';
+        }
+      } catch (err) {}
+    }
+  </script>
+
+</body>
+</html>

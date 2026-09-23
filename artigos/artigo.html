@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Primário Dinâmico -->
+  <title id="meta-title">Artigo Jurídico Previdenciário | Janeiro Advocacia &amp; Consultoria</title>
+  <meta name="description" id="meta-desc" content="Artigo especializado em Direito Previdenciário escrito pela equipe de Janeiro Advocacia &amp; Consultoria em Umuarama - PR.">
+  <meta name="author" id="meta-author" content="Janeiro Advocacia &amp; Consultoria">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0D1B2A">
+
+  <!-- Open Graph Dinâmico -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" id="og-title" content="Artigo Jurídico Previdenciário">
+  <meta property="og:description" id="og-desc" content="Artigo especializado em Direito Previdenciário.">
+  <meta property="og:image" id="og-image" content="../assets/dr-andre.jpg">
+
+  <!-- Favicon Monograma JA -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230D1B2A'/><circle cx='50' cy='50' r='42' fill='none' stroke='%23D4A359' stroke-width='2.5'/><text x='50%' y='58%' font-family='serif' font-size='38' font-weight='600' fill='%23D4A359' text-anchor='middle' dominant-baseline='middle'>JA</text></svg>">
+
+  <!-- Fontes Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              DEFAULT: '#0D1B2A',
+              light: '#182A3E',
+              deep: '#08111B',
+            },
+            gold: {
+              DEFAULT: '#D4A359',
+              hover: '#C59346',
+              dark: '#B8860B',
+              light: '#FAF3E6',
+            },
+            sand: {
+              DEFAULT: '#EAE5DE',
+              light: '#F6F3EE',
+            },
+            offwhite: '#FAF9F5',
+            graphite: '#1E293B',
+            warmgray: '#64748B',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Estilos Gerais do Site -->
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="bg-offwhite text-graphite font-sans antialiased selection:bg-gold-light selection:text-navy min-h-screen flex flex-col justify-between">
+
+  <!-- ======================================================================
+       HEADER FIXO COM GLASSMORPHISM
+       ====================================================================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-offwhite/95 backdrop-blur-md border-b border-sand transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-20 flex items-center justify-between">
+      <a href="../index.html" class="flex items-center gap-3 group">
+        <img src="../assets/logo-transparent.png" alt="Janeiro Advocacia &amp; Consultoria" class="h-10 w-auto">
+      </a>
+
+      <div class="flex items-center gap-4">
+        <a href="../index.html#artigos" class="hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-editorial text-warmgray hover:text-navy transition-colors font-semibold">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Voltar aos Artigos</span>
+        </a>
+        <a id="header-whatsapp-btn" href="https://wa.me/5544988442379?text=Ol%C3%A1%2C%20gostaria%20de%20uma%20orienta%C3%A7%C3%A3o%20previdenci%C3%A1ria."
+           target="_blank" rel="noopener noreferrer"
+           class="btn-primary-gold py-2.5 px-5 text-xs rounded-full">
+          <span>Agendar Análise</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       ÁREA PRINCIPAL DO ARTIGO
+       ====================================================================== -->
+  <main class="pt-28 sm:pt-36 pb-20 flex-1">
+    
+    <!-- Estado: Carregando -->
+    <div id="loading-state" class="max-w-3xl mx-auto px-4 sm:px-6 py-20 text-center">
+      <div class="w-10 h-10 border-4 border-gold border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+      <p class="text-sm text-warmgray font-light">Carregando conteúdo jurídico...</p>
+    </div>
+
+    <!-- Estado: Artigo Não Encontrado -->
+    <div id="not-found-state" class="hidden max-w-xl mx-auto px-4 sm:px-6 py-20 text-center">
+      <div class="w-16 h-16 rounded-full bg-sand-light text-navy flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="file-question" class="w-8 h-8 text-gold"></i>
+      </div>
+      <h1 class="font-serif text-3xl text-navy font-semibold mb-2">Artigo Não Encontrado</h1>
+      <p class="text-sm text-warmgray leading-relaxed mb-6 font-light">
+        A publicação solicitada não existe ou foi atualizada. Navegue pela nossa lista completa de matérias previdenciárias.
+      </p>
+      <a href="../index.html#artigos" class="btn-primary-gold py-3 px-6 text-xs rounded-full inline-flex items-center gap-2">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>Ver Todos os Artigos</span>
+      </a>
+    </div>
+
+    <!-- Estado: Conteúdo Renderizado -->
+    <article id="article-container" class="hidden max-w-3xl mx-auto px-4 sm:px-6">
+
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-xs text-warmgray mb-8" aria-label="Breadcrumb">
+        <a href="../index.html" class="hover:text-navy transition-colors">Início</a>
+        <span class="text-sand">/</span>
+        <a href="../index.html#artigos" class="hover:text-navy transition-colors">Conteúdo Jurídico</a>
+        <span class="text-sand">/</span>
+        <span id="breadcrumb-category" class="text-warmgray">Previdenciário</span>
+        <span class="text-sand">/</span>
+        <span id="breadcrumb-title" class="text-navy font-medium truncate max-w-[200px] sm:max-w-[300px]">Artigo</span>
+      </nav>
+
+      <!-- Cabeçalho do Artigo -->
+      <header class="mb-10 sm:mb-12">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span id="article-badge" class="px-3 py-1 rounded-full bg-gold-light text-gold-dark text-xs font-semibold tracking-wider uppercase border border-gold/30">
+            Regras de Transição
+          </span>
+          <span class="text-xs text-warmgray flex items-center gap-1">
+            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+            <span id="article-reading-time">5 min de leitura</span>
+          </span>
+          <span class="text-xs text-warmgray flex items-center gap-1">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            <span id="article-published-date">Publicado recentemente</span>
+          </span>
+        </div>
+
+        <h1 id="article-heading" class="font-serif text-3xl sm:text-4xl md:text-5xl text-navy font-normal leading-[1.18] mb-6">
+          Título do Artigo
+        </h1>
+
+        <p id="article-lead" class="text-lg text-warmgray font-light leading-relaxed mb-6">
+          Resumo introdutório do artigo...
+        </p>
+
+        <!-- Meta Autor do Cabeçalho -->
+        <div class="flex items-center gap-3 pt-6 border-t border-sand">
+          <img id="author-avatar-top" src="../assets/dr-andre.jpg" alt="Advogado Autor" class="w-12 h-12 rounded-full object-cover border border-gold/40">
+          <div>
+            <div id="author-name-top" class="text-sm font-semibold text-navy">Dr. André Luiz Leonardi Janeiro</div>
+            <div id="author-meta-top" class="text-xs text-warmgray">Advogado Sócio-Fundador • OAB/PR 84.395</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Imagem de Destaque (se disponível) -->
+      <div id="featured-image-box" class="mb-10 rounded-2xl overflow-hidden shadow-subtle border border-sand">
+        <img id="featured-image" src="" alt="Capa da Matéria" class="w-full h-auto max-h-[420px] object-cover">
+      </div>
+
+      <!-- Corpo do Artigo -->
+      <div id="article-content-body" class="article-body">
+        <!-- Conteúdo HTML do artigo injetado aqui -->
+      </div>
+
+      <!-- Card do Autor no Rodapé -->
+      <section id="author-bio-card" class="mt-14 pt-8 border-t border-sand bg-white rounded-2xl p-6 sm:p-8 border border-sand shadow-xs">
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
+          <img id="author-bio-avatar" src="../assets/dr-andre.jpg" alt="Advogado Autor" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-2 border-gold/40 shadow-xs flex-shrink-0">
+          <div>
+            <span class="text-[10px] uppercase tracking-wider text-gold-dark font-bold bg-gold-light px-2.5 py-0.5 rounded-full inline-block mb-2">
+              Sobre o Autor
+            </span>
+            <h3 id="author-bio-name" class="font-serif text-2xl text-navy font-semibold">Dr. André Luiz Leonardi Janeiro</h3>
+            <p id="author-bio-creds" class="text-xs text-warmgray mb-3">Advogado Sócio-Fundador • OAB/PR 84.395 • Especialista em Direito Previdenciário</p>
+            <p id="author-bio-desc" class="text-sm text-graphite leading-relaxed font-light">
+              Advogado com foco exclusivo na proteção atuarial e jurídica de segurados do INSS e servidores públicos. Atuação preventiva em planejamento previdenciário e judicial estratégica.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Banner de Conversão WhatsApp -->
+      <section class="mt-10 p-8 rounded-2xl bg-gradient-to-br from-navy to-[#182A3E] text-offwhite border border-gold/30 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+        <div class="max-w-md">
+          <span class="text-gold text-xs uppercase tracking-wider font-semibold">Atendimento Individualizado</span>
+          <h3 class="font-serif text-2xl sm:text-3xl text-offwhite mt-1 mb-2 font-normal">Ficou com alguma dúvida sobre o seu caso?</h3>
+          <p class="text-slate-300 text-xs sm:text-sm font-light leading-relaxed">
+            Nossos advogados especialistas em Direito Previdenciário estão disponíveis para analisar seus documentos e indicar o melhor caminho.
+          </p>
+        </div>
+
+        <a id="article-whatsapp-cta" href="#" target="_blank" rel="noopener noreferrer"
+           class="btn-primary-gold py-3.5 px-7 text-xs rounded-full flex items-center justify-center gap-2 flex-shrink-0">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Falar com o Advogado no WhatsApp</span>
+        </a>
+      </section>
+
+      <!-- Botão Voltar -->
+      <div class="mt-12 text-center">
+        <a href="../index.html#artigos" class="inline-flex items-center gap-2 text-xs uppercase tracking-editorial font-bold text-navy hover:text-gold-dark transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4 text-gold"></i>
+          <span>Ver Mais Artigos &amp; Orientações</span>
+        </a>
+      </div>
+
+    </article>
+
+  </main>
+
+  <!-- ======================================================================
+       RODAPÉ EDITORIAL
+       ====================================================================== -->
+  <footer class="bg-navy text-offwhite py-8 border-t border-slate-800 text-center text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4">
+      <p class="mb-1">&copy; 2026 Janeiro Advocacia &amp; Consultoria. Todos os direitos reservados.</p>
+      <p class="text-[11px] text-slate-500">Dr. André Luiz Leonardi Janeiro (OAB/PR 84.395) | Dra. Isis Nunes Dias Janeiro (OAB/PR 82.230)</p>
+    </div>
+  </footer>
+
+  <!-- ======================================================================
+       SCRIPT DO LEITOR DINÂMICO
+       ====================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (window.lucide) window.lucide.createIcons();
+
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug');
+
+      if (!slug) {
+        showNotFound();
+        return;
+      }
+
+      await loadAndRenderArticle(slug);
+    });
+
+    async function loadAndRenderArticle(slug) {
+      let article = null;
+
+      // 1. Tentar ler do localStorage
+      const localArtigos = localStorage.getItem('ja_artigos');
+      if (localArtigos) {
+        try {
+          const list = JSON.parse(localArtigos);
+          article = list.find(a => a.slug === slug);
+        } catch (e) {}
+      }
+
+      // 2. Se não encontrar, tentar ler do arquivo seed JSON
+      if (!article) {
+        try {
+          const res = await fetch('../data/artigos.json');
+          if (res.ok) {
+            const list = await res.json();
+            article = list.find(a => a.slug === slug);
+          }
+        } catch (err) {}
+      }
+
+      // 3. Se ainda não encontrar e houver Supabase configurado, consultar a nuvem
+      if (!article) {
+        const supabaseConfig = localStorage.getItem('ja_supabase_config');
+        if (supabaseConfig) {
+          try {
+            const conf = JSON.parse(supabaseConfig);
+            if (conf.url && conf.key) {
+              const res = await fetch(`${conf.url}/rest/v1/artigos?slug=eq.${encodeURIComponent(slug)}&select=*`, {
+                headers: {
+                  'apikey': conf.key,
+                  'Authorization': `Bearer ${conf.key}`
+                }
+              });
+              if (res.ok) {
+                const results = await res.json();
+                if (results && results.length > 0) {
+                  const r = results[0];
+                  article = {
+                    id: r.id,
+                    slug: r.slug,
+                    titulo: r.titulo,
+                    categoria: r.categoria,
+                    resumo: r.resumo,
+                    imagem: r.imagem,
+                    autor: r.autor,
+                    autorOab: r.autor_oab,
+                    dataPublicacao: r.data_publicacao,
+                    tempoLeitura: r.tempo_leitura,
+                    conteudoHtml: r.conteudo_html,
+                    urlEstatica: r.url_estatica || ''
+                  };
+                }
+              }
+            }
+          } catch (e) {}
+        }
+      }
+
+      // Se achou, renderiza; caso contrário, exibe 404
+      if (article) {
+        renderArticle(article);
+      } else {
+        showNotFound();
+      }
+    }
+
+    function renderArticle(art) {
+      document.getElementById('loading-state').classList.add('hidden');
+      document.getElementById('not-found-state').classList.add('hidden');
+      document.getElementById('article-container').classList.remove('hidden');
+
+      // Título e SEO
+      const pageTitle = `${art.titulo} | Janeiro Advocacia`;
+      document.title = pageTitle;
+      document.getElementById('meta-title').textContent = pageTitle;
+      document.getElementById('meta-desc').setAttribute('content', art.resumo || '');
+      document.getElementById('og-title').setAttribute('content', art.titulo);
+      document.getElementById('og-desc').setAttribute('content', art.resumo || '');
+
+      // Breadcrumbs
+      document.getElementById('breadcrumb-category').textContent = art.categoria || 'Previdenciário';
+      document.getElementById('breadcrumb-title').textContent = art.titulo;
+
+      // Header Meta
+      document.getElementById('article-badge').textContent = art.categoria || 'Geral';
+      document.getElementById('article-reading-time').textContent = art.tempoLeitura || '5 min de leitura';
+      document.getElementById('article-published-date').textContent = art.dataPublicacao ? formatDateBR(art.dataPublicacao) : 'Recente';
+      document.getElementById('article-heading').textContent = art.titulo;
+      document.getElementById('article-lead').textContent = art.resumo || '';
+
+      // Autoria
+      const isIsis = (art.autor || '').includes('Isis');
+      const authorName = art.autor || (isIsis ? 'Dra. Isis Nunes Dias Janeiro' : 'Dr. André Luiz Leonardi Janeiro');
+      const authorOab = art.autorOab || (isIsis ? 'OAB/PR 82.230' : 'OAB/PR 84.395');
+      const authorImg = isIsis ? '../assets/dra-isis.png' : '../assets/dr-andre.jpg';
+
+      document.getElementById('author-avatar-top').src = authorImg;
+      document.getElementById('author-name-top').textContent = authorName;
+      document.getElementById('author-meta-top').textContent = `${isIsis ? 'Advogada Colaboradora' : 'Advogado Sócio-Fundador'} • ${authorOab}`;
+
+      document.getElementById('author-bio-avatar').src = authorImg;
+      document.getElementById('author-bio-name').textContent = authorName;
+      document.getElementById('author-bio-creds').textContent = `${isIsis ? 'Advogada Colaboradora' : 'Advogado Sócio-Fundador'} • ${authorOab} • Especialista em Direito Previdenciário`;
+      document.getElementById('author-bio-desc').textContent = isIsis 
+        ? 'Especialista em Direito e Advocacia Previdenciária pela EBRADI. Atuação dedicada em benefícios por incapacidade, aposentadorias de professores e assistência ao segurado.'
+        : 'Sócio-fundador de Janeiro Advocacia. Especialista em Direito Previdenciário com foco em planejamento atuarial, regras de transição complexas e cálculos de liquidação.';
+
+      // Imagem de Destaque
+      const featBox = document.getElementById('featured-image-box');
+      const featImg = document.getElementById('featured-image');
+      if (art.imagem) {
+        featImg.src = art.imagem;
+        featImg.alt = art.titulo;
+        featBox.classList.remove('hidden');
+      } else {
+        featBox.classList.add('hidden');
+      }
+
+      // Conteúdo HTML
+      document.getElementById('article-content-body').innerHTML = art.conteudoHtml || '';
+
+      // WhatsApp CTAs
+      const whatsappMsg = `Olá! Li o artigo "${art.titulo}" no site da Janeiro Advocacia e gostaria de tirar uma dúvida sobre o meu caso.`;
+      const encodedMsg = encodeURIComponent(whatsappMsg);
+      const whatsappUrl = `https://wa.me/5544988442379?text=${encodedMsg}`;
+
+      document.getElementById('header-whatsapp-btn').href = whatsappUrl;
+      document.getElementById('article-whatsapp-cta').href = whatsappUrl;
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function showNotFound() {
+      document.getElementById('loading-state').classList.add('hidden');
+      document.getElementById('article-container').classList.add('hidden');
+      document.getElementById('not-found-state').classList.remove('hidden');
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function formatDateBR(dateString) {
+      if (!dateString) return '';
+      const parts = dateString.split('-');
+      if (parts.length === 3) {
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+      }
+      return dateString;
+    }
+  </script>
+
+</body>
+</html>

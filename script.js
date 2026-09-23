@@ -85,33 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 4. FAQ Accordion Interativo
-  const faqItems = document.querySelectorAll('.faq-item');
-  faqItems.forEach(item => {
-    const btn = item.querySelector('.faq-button');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
+  bindFaqAccordionListeners();
 
-        // Fecha outros itens para elegância
-        faqItems.forEach(otherItem => {
-          if (otherItem !== item && otherItem.classList.contains('active')) {
-            otherItem.classList.remove('active');
-            const otherBtn = otherItem.querySelector('.faq-button');
-            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
-          }
-        });
-
-        // Alterna o item clicado
-        if (isActive) {
-          item.classList.remove('active');
-          btn.setAttribute('aria-expanded', 'false');
-        } else {
-          item.classList.add('active');
-          btn.setAttribute('aria-expanded', 'true');
-        }
-      });
-    }
-  });
+  // 4.1. Hidratação Dinâmica do CMS (Artigos & FAQ)
+  initCMSHydration();
 
   // 5. Reveal on Scroll (Animações suaves de entrada)
   const revealElements = document.querySelectorAll('.reveal-on-scroll');
@@ -367,3 +344,207 @@ function restartQuiz() {
   if (stepProgress) stepProgress.style.width = '33%';
   if (stepLabel) stepLabel.textContent = 'Etapa 1 de 3';
 }
+
+// ==========================================================================
+// 8. INTERATIVIDADE DO FAQ ACCORDION (REUTILIZÁVEL)
+// ==========================================================================
+function bindFaqAccordionListeners() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const btn = item.querySelector('.faq-button');
+    if (btn && !btn._hasClickListener) {
+      btn._hasClickListener = true;
+      btn.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        // Fecha outros itens para elegância
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('active')) {
+            otherItem.classList.remove('active');
+            const otherBtn = otherItem.querySelector('.faq-button');
+            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        // Alterna o item clicado
+        if (isActive) {
+          item.classList.remove('active');
+          btn.setAttribute('aria-expanded', 'false');
+        } else {
+          item.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+  });
+}
+
+// ==========================================================================
+// 9. HIDRATAÇÃO DINÂMICA DO CMS (OPÇÃO 1: LOCAL-FIRST + SUPABASE)
+// ==========================================================================
+async function initCMSHydration() {
+  try {
+    // 1. Hidratar Artigos se existirem no localStorage
+    const localArtigos = localStorage.getItem('ja_artigos');
+    if (localArtigos) {
+      try {
+        const artigos = JSON.parse(localArtigos);
+        if (Array.isArray(artigos) && artigos.length > 0) {
+          renderPublicArticles(artigos);
+        }
+      } catch (e) {
+        console.warn('Erro ao ler artigos locais:', e);
+      }
+    }
+
+    // 2. Hidratar FAQ se existir no localStorage
+    const localFaq = localStorage.getItem('ja_faq');
+    if (localFaq) {
+      try {
+        const faqs = JSON.parse(localFaq);
+        if (Array.isArray(faqs) && faqs.length > 0) {
+          renderPublicFaq(faqs);
+        }
+      } catch (e) {
+        console.warn('Erro ao ler FAQ local:', e);
+      }
+    }
+
+    // 3. Sincronização em Nuvem (Supabase) em segundo plano, se configurada
+    const supabaseConfig = localStorage.getItem('ja_supabase_config');
+    if (supabaseConfig) {
+      try {
+        const config = JSON.parse(supabaseConfig);
+        if (config.url && config.key) {
+          syncPublicFromSupabase(config);
+        }
+      } catch (e) {}
+    }
+  } catch (err) {
+    console.error('Falha na inicialização do CMS no site público:', err);
+  }
+}
+
+function renderPublicArticles(artigos) {
+  const container = document.getElementById('artigos-grid');
+  if (!container || !artigos || artigos.length === 0) return;
+
+  container.innerHTML = artigos.map(art => {
+    const linkUrl = art.urlEstatica ? art.urlEstatica : `artigos/artigo.html?slug=${art.slug}`;
+    const readingTime = art.tempoLeitura || '5 min de leitura';
+    const category = art.categoria || 'Direito Previdenciário';
+
+    return `
+      <article class="card-premium flex flex-col justify-between overflow-hidden group reveal-on-scroll is-visible">
+        <div class="p-6">
+          <span class="px-2.5 py-1 rounded-full bg-gold-light text-gold-dark text-[10px] uppercase tracking-wider font-bold mb-3 inline-block">
+            ${escapeHtmlPublic(category)}
+          </span>
+          <div class="flex items-center gap-2 text-xs text-warmgray mb-2">
+            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+            <span>${escapeHtmlPublic(readingTime)}</span>
+          </div>
+          <h3 class="font-serif text-xl sm:text-2xl text-navy font-semibold group-hover:text-gold-dark transition-colors mb-2.5 leading-snug">
+            ${escapeHtmlPublic(art.titulo)}
+          </h3>
+          <p class="text-warmgray text-xs sm:text-sm font-light leading-relaxed line-clamp-3 mb-4">
+            ${escapeHtmlPublic(art.resumo || '')}
+          </p>
+        </div>
+        <div class="px-6 pb-6 pt-0">
+          <a href="${linkUrl}" class="inline-flex items-center gap-2 text-xs uppercase tracking-editorial font-bold text-navy group-hover:text-gold-dark transition-colors">
+            <span>Ler Artigo Completo</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform text-gold"></i>
+          </a>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  if (window.lucide) window.lucide.createIcons();
+}
+
+function renderPublicFaq(faqs) {
+  const container = document.getElementById('faq-accordion-list');
+  if (!container || !faqs || faqs.length === 0) return;
+
+  container.innerHTML = faqs.map((faq, index) => {
+    return `
+      <div class="faq-item">
+        <button class="faq-button" aria-expanded="false">
+          <span>${escapeHtmlPublic(faq.pergunta)}</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gold-dark transition-transform flex-shrink-0 ml-4"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm text-warmgray leading-relaxed font-light">
+            ${escapeHtmlPublic(faq.resposta)}
+          </p>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  if (window.lucide) window.lucide.createIcons();
+  bindFaqAccordionListeners();
+}
+
+async function syncPublicFromSupabase(config) {
+  const { url, key } = config;
+  try {
+    // Sincronizar Artigos
+    const resArt = await fetch(`${url}/rest/v1/artigos?select=*&order=data_publicacao.desc`, {
+      headers: { 'apikey': key, 'Authorization': `Bearer ${key}` }
+    });
+    if (resArt.ok) {
+      const remoteArtigos = await resArt.json();
+      if (remoteArtigos && remoteArtigos.length > 0) {
+        const mapped = remoteArtigos.map(r => ({
+          id: r.id,
+          slug: r.slug,
+          titulo: r.titulo,
+          categoria: r.categoria,
+          resumo: r.resumo,
+          imagem: r.imagem,
+          autor: r.autor,
+          autorOab: r.autor_oab,
+          dataPublicacao: r.data_publicacao,
+          tempoLeitura: r.tempo_leitura,
+          conteudoHtml: r.conteudo_html,
+          urlEstatica: r.url_estatica || ''
+        }));
+        localStorage.setItem('ja_artigos', JSON.stringify(mapped));
+        renderPublicArticles(mapped);
+      }
+    }
+
+    // Sincronizar FAQ
+    const resFaq = await fetch(`${url}/rest/v1/faq?select=*`, {
+      headers: { 'apikey': key, 'Authorization': `Bearer ${key}` }
+    });
+    if (resFaq.ok) {
+      const remoteFaq = await resFaq.json();
+      if (remoteFaq && remoteFaq.length > 0) {
+        const mappedFaq = remoteFaq.map(f => ({
+          id: f.id,
+          pergunta: f.pergunta,
+          resposta: f.resposta
+        }));
+        localStorage.setItem('ja_faq', JSON.stringify(mappedFaq));
+        renderPublicFaq(mappedFaq);
+      }
+    }
+  } catch (err) {
+    console.warn('Sync público silencioso Supabase:', err);
+  }
+}
+
+function escapeHtmlPublic(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+

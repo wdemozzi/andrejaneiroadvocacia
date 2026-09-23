@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo (CMS) | Janeiro Advocacia &amp; Consultoria</title>
+  <link rel="icon" type="image/png" href="../assets/logo-icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              DEFAULT: '#0D1B2A',
+              light: '#182A3E',
+              deep: '#08111B',
+            },
+            gold: {
+              DEFAULT: '#D4A359',
+              hover: '#C59346',
+              dark: '#B8860B',
+              light: '#FAF3E6',
+            },
+            sand: '#EAE5DE',
+            offwhite: '#FAF9F5',
+            graphite: '#1E293B',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Admin CSS -->
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="bg-[#F8F9FA] text-graphite font-sans antialiased min-h-screen flex flex-col md:flex-row">
+
+  <!-- ======================================================================
+       SIDEBAR LATERAL
+       ====================================================================== -->
+  <aside class="w-full md:w-64 lg:w-72 bg-navy text-offwhite flex-shrink-0 flex flex-col justify-between border-r border-slate-800">
+    
+    <div>
+      <!-- Brand & Header Sidebar -->
+      <div class="p-6 border-b border-slate-800/80">
+        <a href="../index.html" target="_blank" title="Ver site público" class="flex items-center gap-3 group">
+          <img src="../assets/logo-transparent.png" alt="Janeiro Advocacia" class="h-10 w-auto object-contain">
+        </a>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[10px] uppercase tracking-widest text-gold font-bold bg-navy-light px-2.5 py-0.5 rounded-full border border-gold/30">
+            Painel CMS v1.0
+          </span>
+          <span id="cloud-indicator" class="flex items-center gap-1.5 text-[10px] text-emerald-400 font-medium" title="Dados persistidos localmente e prontos para sincronizar">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="cloud-status-text">Modo Ativo</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Menu de Navegação do CMS -->
+      <nav class="p-4 space-y-1.5">
+        <button onclick="switchTab('tab-artigos')" id="nav-artigos" class="nav-item active w-full text-left">
+          <i data-lucide="newspaper" class="w-4 h-4"></i>
+          <span>Artigos do Blog</span>
+          <span id="count-artigos" class="ml-auto text-xs px-2 py-0.5 rounded-full bg-navy text-gold font-bold">3</span>
+        </button>
+
+        <button onclick="switchTab('tab-editor')" id="nav-editor" class="nav-item w-full text-left">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span>Novo Artigo</span>
+        </button>
+
+        <button onclick="switchTab('tab-faq')" id="nav-faq" class="nav-item w-full text-left">
+          <i data-lucide="help-circle" class="w-4 h-4"></i>
+          <span>Gerenciar FAQ</span>
+          <span id="count-faq" class="ml-auto text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-medium">10</span>
+        </button>
+
+        <button onclick="switchTab('tab-cloud')" id="nav-cloud" class="nav-item w-full text-left">
+          <i data-lucide="cloud" class="w-4 h-4"></i>
+          <span>Nuvem &amp; Supabase</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Perfil do Usuário e Rodapé Sidebar -->
+    <div class="p-4 border-t border-slate-800 bg-navy-deep/60">
+      <div class="flex items-center justify-between mb-3 px-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-gold/20 border border-gold text-gold font-serif font-bold text-xs flex items-center justify-center">
+            AJ
+          </div>
+          <div>
+            <div class="text-xs font-semibold text-offwhite" id="user-display-name">Dr. André Janeiro</div>
+            <div class="text-[10px] text-slate-400">OAB/PR 84.395</div>
+          </div>
+        </div>
+        <button onclick="handleLogout()" title="Sair do painel" class="text-slate-400 hover:text-rose-400 p-1.5 rounded-lg hover:bg-slate-800 transition-colors">
+          <i data-lucide="log-out" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <a href="../index.html" target="_blank" class="w-full py-2 px-3 rounded-lg bg-navy-light text-slate-300 hover:text-gold text-xs flex items-center justify-center gap-1.5 border border-slate-700/60 transition-colors">
+        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+        <span>Visualizar Site no Ar</span>
+      </a>
+    </div>
+
+  </aside>
+
+  <!-- ======================================================================
+       CONTEÚDO PRINCIPAL (ÁREA DE TRABALHO)
+       ====================================================================== -->
+  <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+    
+    <!-- Topbar Superior -->
+    <header class="h-16 bg-white border-b border-slate-200 px-6 sm:px-8 flex items-center justify-between gap-4 sticky top-0 z-30 shadow-xs">
+      <div class="flex items-center gap-3">
+        <h2 id="page-title" class="font-serif text-2xl text-navy font-semibold">Artigos Publicados</h2>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="top-action-btn" onclick="switchTab('tab-editor')" class="btn-cms-primary text-xs py-2 px-4">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          <span>Novo Artigo</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Conteúdo das Abas -->
+    <div class="p-6 sm:p-8 flex-1 max-w-7xl w-full mx-auto">
+      
+      <!-- ==================================================================
+           ABA 1: LISTAGEM DE ARTIGOS
+           ================================================================== -->
+      <section id="tab-artigos" class="cms-tab-content space-y-6">
+        
+        <!-- Barra de Busca & Filtro -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-xl border border-sand shadow-subtle">
+          <div class="relative w-full sm:w-96">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input type="text" id="search-artigo" oninput="filterArticles()"
+                   placeholder="Buscar artigo por título ou categoria..."
+                   class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:border-gold focus:bg-white transition-all">
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <select id="filter-category" onchange="filterArticles()"
+                    class="py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg text-xs text-graphite focus:outline-none focus:border-gold">
+              <option value="">Todas as Categorias</option>
+              <option value="Regras de Transição">Regras de Transição</option>
+              <option value="Planejamento Previdenciário">Planejamento Previdenciário</option>
+              <option value="Benefícios por Incapacidade">Benefícios por Incapacidade</option>
+              <option value="Revisões de Benefício">Revisões de Benefício</option>
+              <option value="Servidores Públicos (RPPS)">Servidores Públicos (RPPS)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tabela de Artigos -->
+        <div class="cms-card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="cms-table">
+              <thead>
+                <tr>
+                  <th style="width: 70px;">Capa</th>
+                  <th>Título &amp; Resumo</th>
+                  <th>Categoria</th>
+                  <th>Autor</th>
+                  <th>Data</th>
+                  <th style="text-align: right;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="artigos-table-body">
+                <!-- Inserido dinamicamente via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ==================================================================
+           ABA 2: FORMULÁRIO DO EDITOR DE ARTIGO
+           ================================================================== -->
+      <section id="tab-editor" class="cms-tab-content hidden space-y-6">
+        
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+          <div>
+            <h3 id="editor-heading" class="font-serif text-2xl text-navy font-semibold">Redigir Artigo Previdenciário</h3>
+            <p class="text-xs text-warmgray mt-0.5">Preencha as informações para publicação no site e indexação orgânica no Google.</p>
+          </div>
+          <button type="button" onclick="cancelEdit()" class="btn-cms-secondary text-xs">
+            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            <span>Cancelar</span>
+          </button>
+        </div>
+
+        <form id="article-form" onsubmit="handleSaveArticle(event)" class="space-y-6">
+          <input type="hidden" id="article-id" value="">
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Coluna Principal (Conteúdo) -->
+            <div class="lg:col-span-8 space-y-5">
+              
+              <!-- Título -->
+              <div class="cms-card p-5">
+                <label for="article-title" class="block text-xs uppercase tracking-wider font-bold text-navy mb-1.5">
+                  Título Principal do Artigo *
+                </label>
+                <input type="text" id="article-title" required oninput="generateSlugFromTitle()"
+                       placeholder="Ex: Como Funciona o Pedágio de 100% na Aposentadoria por Tempo"
+                       class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-base font-serif font-bold text-navy focus:bg-white focus:border-gold focus:outline-none transition-all">
+                
+                <!-- Slug / Link Amigável -->
+                <div class="mt-3 flex items-center gap-2 text-xs text-slate-500">
+                  <span class="font-mono text-slate-400">artigos/</span>
+                  <input type="text" id="article-slug" required
+                         class="flex-1 font-mono text-xs px-2.5 py-1 bg-slate-100 border border-slate-200 rounded text-slate-700 focus:outline-none focus:border-gold">
+                  <button type="button" onclick="generateSlugFromTitle(true)" title="Regerar link" class="text-slate-400 hover:text-gold p-1">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Resumo para o Google (Meta Description) -->
+              <div class="cms-card p-5">
+                <div class="flex items-center justify-between mb-1.5">
+                  <label for="article-excerpt" class="block text-xs uppercase tracking-wider font-bold text-navy">
+                    Resumo Executivo (Meta Description SEO) *
+                  </label>
+                  <span id="char-count" class="text-[11px] text-slate-400 font-mono">0 / 160 caracteres</span>
+                </div>
+                <textarea id="article-excerpt" required rows="3" oninput="updateCharCount()"
+                          placeholder="Síntese clara e atrativa que aparecerá nos resultados de busca do Google e no card do site..."
+                          class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-graphite focus:bg-white focus:border-gold focus:outline-none leading-relaxed transition-all"></textarea>
+              </div>
+
+              <!-- Editor de Conteúdo -->
+              <div class="cms-card p-5">
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-200">
+                  <label class="block text-xs uppercase tracking-wider font-bold text-navy">
+                    Conteúdo Completo da Matéria *
+                  </label>
+
+                  <!-- Barra de Ferramentas Rápidas -->
+                  <div class="editor-toolbar flex flex-wrap items-center gap-1.5">
+                    <button type="button" onclick="insertTag('<h2>', '</h2>')" title="Título de Seção H2">H2 Título</button>
+                    <button type="button" onclick="insertTag('<h3>', '</h3>')" title="Subtítulo H3">H3 Subtítulo</button>
+                    <button type="button" onclick="insertTag('<strong>', '</strong>')" title="Negrito"><strong>B</strong></button>
+                    <button type="button" onclick="insertTag('<em>', '</em>')" title="Itálico"><em>I</em></button>
+                    <button type="button" onclick="insertTag('<blockquote>\"', '\"</blockquote>')" title="Citação em Destaque Dourado">" Citação</button>
+                    <button type="button" onclick="insertTag('<ul>\n  <li>', '</li>\n</ul>')" title="Lista de Tópicos">• Lista</button>
+                    <button type="button" onclick="insertTag('<p>', '</p>')" title="Parágrafo">&para; Parágrafo</button>
+                  </div>
+                </div>
+
+                <textarea id="article-content" required rows="14"
+                          placeholder="Digite ou cole aqui o conteúdo do seu artigo jurídico. Você pode usar os botões acima para formatar títulos, tópicos e citações..."
+                          class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-sans text-graphite focus:bg-white focus:border-gold focus:outline-none font-mono leading-relaxed transition-all"></textarea>
+              </div>
+
+            </div>
+
+            <!-- Coluna Lateral (Metadados & Publicação) -->
+            <div class="lg:col-span-4 space-y-5">
+              
+              <!-- Card Publicação -->
+              <div class="cms-card p-5">
+                <h4 class="text-xs uppercase tracking-wider font-bold text-navy mb-4 pb-2 border-b border-slate-100 flex items-center justify-between">
+                  <span>Publicação</span>
+                  <span class="badge-status-published px-2.5 py-0.5 rounded-full text-[10px] font-bold">Ativo</span>
+                </h4>
+
+                <div class="space-y-3.5 text-xs">
+                  <div>
+                    <label for="article-date" class="block font-medium text-slate-600 mb-1">Data de Publicação:</label>
+                    <input type="date" id="article-date" required
+                           class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:border-gold">
+                  </div>
+
+                  <div>
+                    <label for="article-time" class="block font-medium text-slate-600 mb-1">Tempo de Leitura Estimado:</label>
+                    <input type="text" id="article-time" value="5 min de leitura"
+                           class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:border-gold">
+                  </div>
+                </div>
+
+                <div class="pt-5 mt-5 border-t border-slate-100 flex flex-col gap-2">
+                  <button type="submit" id="btn-save-article" class="btn-cms-primary w-full justify-center text-xs py-3">
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                    <span id="btn-save-label">Salvar &amp; Publicar</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Card Categoria & Autor -->
+              <div class="cms-card p-5 space-y-4">
+                <h4 class="text-xs uppercase tracking-wider font-bold text-navy mb-1 pb-2 border-b border-slate-100">
+                  Classificação &amp; Autoria
+                </h4>
+
+                <div>
+                  <label for="article-category" class="block text-xs font-semibold text-slate-700 mb-1.5">Categoria Previdenciária *</label>
+                  <select id="article-category" required
+                          class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-graphite focus:outline-none focus:border-gold">
+                    <option value="Regras de Transição">Regras de Transição</option>
+                    <option value="Planejamento Previdenciário">Planejamento Previdenciário</option>
+                    <option value="Benefícios por Incapacidade">Benefícios por Incapacidade</option>
+                    <option value="Revisões de Benefício">Revisões de Benefício</option>
+                    <option value="Servidores Públicos (RPPS)">Servidores Públicos (RPPS)</option>
+                    <option value="BPC / LOAS">BPC / LOAS</option>
+                    <option value="Aposentadoria Especial">Aposentadoria Especial</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="article-author" class="block text-xs font-semibold text-slate-700 mb-1.5">Advogado Autor *</label>
+                  <select id="article-author" required
+                          class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-graphite focus:outline-none focus:border-gold">
+                    <option value="Dr. André Luiz Leonardi Janeiro|OAB/PR 84.395">Dr. André Luiz Leonardi Janeiro (OAB/PR 84.395)</option>
+                    <option value="Dra. Isis Nunes Dias Janeiro|OAB/PR 82.230">Dra. Isis Nunes Dias Janeiro (OAB/PR 82.230)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Card Imagem de Capa -->
+              <div class="cms-card p-5 space-y-3">
+                <h4 class="text-xs uppercase tracking-wider font-bold text-navy mb-1 pb-2 border-b border-slate-100">
+                  Imagem de Destaque
+                </h4>
+
+                <div>
+                  <label for="article-image" class="block text-xs font-semibold text-slate-700 mb-1">URL da Imagem de Capa:</label>
+                  <input type="url" id="article-image" oninput="updateImagePreview()"
+                         placeholder="https://images.unsplash.com/..."
+                         class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:border-gold">
+                </div>
+
+                <!-- Preview da imagem -->
+                <div class="relative h-32 rounded-lg overflow-hidden bg-slate-100 border border-slate-200 flex items-center justify-center">
+                  <img id="image-preview" src="" alt="Preview" class="w-full h-full object-cover hidden">
+                  <div id="image-placeholder" class="text-center p-3 text-slate-400 text-xs">
+                    <i data-lucide="image" class="w-6 h-6 mx-auto mb-1 text-slate-300"></i>
+                    <span>Nenhuma imagem selecionada</span>
+                  </div>
+                </div>
+
+                <!-- Sugestões de imagens jurídicas elegantes do Unsplash -->
+                <div class="text-[11px] text-slate-500 pt-1">
+                  <span class="font-medium text-slate-600 block mb-1">Sugestões rápidas de fotos:</span>
+                  <div class="flex flex-wrap gap-1.5">
+                    <button type="button" onclick="setSampleImage('https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80')" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-gold-light text-[10px] text-slate-600">Documentos</button>
+                    <button type="button" onclick="setSampleImage('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80')" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-gold-light text-[10px] text-slate-600">Calculadora</button>
+                    <button type="button" onclick="setSampleImage('https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80')" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-gold-light text-[10px] text-slate-600">Saúde/Laudo</button>
+                    <button type="button" onclick="setSampleImage('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80')" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-gold-light text-[10px] text-slate-600">Direito/Livros</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </form>
+
+      </section>
+
+      <!-- ==================================================================
+           ABA 3: GERENCIADOR DE FAQ
+           ================================================================== -->
+      <section id="tab-faq" class="cms-tab-content hidden space-y-6">
+        
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
+          <div>
+            <h3 class="font-serif text-2xl text-navy font-semibold">Perguntas Frequentes (FAQ)</h3>
+            <p class="text-xs text-warmgray mt-0.5">Gerencie as dúvidas que aparecem no accordion da Dobra 10 do site principal.</p>
+          </div>
+          <button type="button" onclick="openNewFaqModal()" class="btn-cms-primary text-xs">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Nova Pergunta</span>
+          </button>
+        </div>
+
+        <!-- Lista de FAQs -->
+        <div id="faq-list-container" class="space-y-3">
+          <!-- Inserido dinamicamente via JS -->
+        </div>
+
+      </section>
+
+      <!-- ==================================================================
+           ABA 4: NUVEM & SUPABASE (PERSISTÊNCIA)
+           ================================================================== -->
+      <section id="tab-cloud" class="cms-tab-content hidden space-y-6">
+        
+        <div class="pb-2 border-b border-slate-200">
+          <h3 class="font-serif text-2xl text-navy font-semibold">Sincronização em Nuvem (Supabase)</h3>
+          <p class="text-xs text-warmgray mt-0.5">Conecte o seu banco de dados PostgreSQL gratuito para sincronização permanente em múltiplos computadores e celulares.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Formulário de Credenciais -->
+          <div class="lg:col-span-7 space-y-5">
+            <div class="cms-card p-6">
+              <h4 class="text-xs uppercase tracking-wider font-bold text-navy mb-4 flex items-center gap-2">
+                <i data-lucide="key" class="w-4 h-4 text-gold"></i>
+                <span>Credenciais do Projeto Supabase</span>
+              </h4>
+
+              <div class="space-y-4">
+                <div>
+                  <label for="supabase-url" class="block text-xs font-semibold text-slate-700 mb-1">Supabase Project URL:</label>
+                  <input type="text" id="supabase-url" placeholder="https://seu-projeto.supabase.co"
+                         class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-mono focus:outline-none focus:border-gold">
+                </div>
+
+                <div>
+                  <label for="supabase-key" class="block text-xs font-semibold text-slate-700 mb-1">Supabase Anon Key (Chave Pública):</label>
+                  <input type="password" id="supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..."
+                         class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-mono focus:outline-none focus:border-gold">
+                </div>
+
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="saveSupabaseConfig()" class="btn-cms-primary text-xs">
+                    <i data-lucide="save" class="w-4 h-4"></i>
+                    <span>Salvar Conexão</span>
+                  </button>
+                  <button type="button" onclick="testSupabaseConnection()" class="btn-cms-secondary text-xs">
+                    <i data-lucide="radio" class="w-4 h-4"></i>
+                    <span>Testar Conexão</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Backup & Exportação -->
+            <div class="cms-card p-6">
+              <h4 class="text-xs uppercase tracking-wider font-bold text-navy mb-3 flex items-center gap-2">
+                <i data-lucide="database" class="w-4 h-4 text-gold"></i>
+                <span>Backup Local dos Dados</span>
+              </h4>
+              <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                Você pode baixar um arquivo JSON completo com todos os artigos e perguntas para segurança ou importar em outro dispositivo.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <button type="button" onclick="exportDataBackup()" class="btn-cms-secondary text-xs">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                  <span>Baixar Backup (JSON)</span>
+                </button>
+                <button type="button" onclick="resetToDefaultData()" class="btn-cms-danger text-xs">
+                  <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                  <span>Restaurar Padrão Inicial</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tutorial de Instalação Supabase -->
+          <div class="lg:col-span-5 space-y-5">
+            <div class="cms-card p-6 bg-slate-50 border-slate-200">
+              <h4 class="text-xs uppercase tracking-wider font-bold text-navy mb-3 flex items-center gap-2">
+                <i data-lucide="info" class="w-4 h-4 text-gold"></i>
+                <span>Como Ativar o Supabase Gratuito</span>
+              </h4>
+              <ol class="space-y-3 text-xs text-slate-600 list-decimal list-inside leading-relaxed">
+                <li>Crie uma conta gratuita em <strong>supabase.com</strong>.</li>
+                <li>Crie um novo projeto (ex: <code class="text-navy font-mono">janeiro-advocacia</code>).</li>
+                <li>Vá em <strong>SQL Editor</strong> e rode o script abaixo para criar as tabelas com um clique:</li>
+              </ol>
+
+              <div class="mt-3 relative">
+                <pre class="bg-navy text-slate-300 p-3 rounded-lg text-[10px] font-mono overflow-x-auto max-h-48 leading-relaxed">
+-- Criar Tabela de Artigos
+create table artigos (
+  id text primary key,
+  slug text unique not null,
+  titulo text not null,
+  categoria text not null,
+  resumo text not null,
+  imagem text,
+  autor text not null,
+  autor_oab text,
+  data_publicacao date not null,
+  tempo_leitura text,
+  conteudo_html text not null
+);
+
+-- Criar Tabela de FAQ
+create table faq (
+  id text primary key,
+  pergunta text not null,
+  resposta text not null
+);
+
+-- Habilitar Leitura Pública
+alter table artigos enable row level security;
+alter table faq enable row level security;
+create policy "Leitura pública artigos" on artigos for select using (true);
+create policy "Leitura pública faq" on faq for select using (true);
+                </pre>
+                <button onclick="copySqlScript()" class="absolute top-2 right-2 px-2 py-1 bg-navy-light text-gold text-[10px] rounded hover:bg-slate-700">Copiar</button>
+              </div>
+
+              <div class="mt-3 text-[11px] text-slate-500">
+                4. Copie a <strong>Project URL</strong> e <strong>anon public key</strong> nas configurações ao lado e clique em salvar!
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- ======================================================================
+       MODAL: ADICIONAR / EDITAR FAQ
+       ====================================================================== -->
+  <div id="faq-modal" class="fixed inset-0 bg-navy/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-sand">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+        <h3 id="faq-modal-title" class="font-serif text-xl text-navy font-semibold">Editar Dúvida do FAQ</h3>
+        <button onclick="closeFaqModal()" class="text-slate-400 hover:text-navy p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="faq-form" onsubmit="handleSaveFaq(event)" class="space-y-4">
+        <input type="hidden" id="faq-id" value="">
+
+        <div>
+          <label for="faq-question" class="block text-xs uppercase tracking-wider font-bold text-navy mb-1">
+            Pergunta / Dúvida do Segurado *
+          </label>
+          <input type="text" id="faq-question" required
+                 placeholder="Ex: Quanto tempo demora um processo no INSS?"
+                 class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-graphite focus:bg-white focus:border-gold focus:outline-none">
+        </div>
+
+        <div>
+          <label for="faq-answer" class="block text-xs uppercase tracking-wider font-bold text-navy mb-1">
+            Resposta Jurídica Clara *
+          </label>
+          <textarea id="faq-answer" required rows="5"
+                    placeholder="Escreva a resposta com linguagem acessível e acolhedora..."
+                    class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-graphite focus:bg-white focus:border-gold focus:outline-none leading-relaxed"></textarea>
+        </div>
+
+        <div class="pt-3 flex items-center justify-end gap-2 border-t border-slate-100">
+          <button type="button" onclick="closeFaqModal()" class="btn-cms-secondary text-xs">Cancelar</button>
+          <button type="submit" class="btn-cms-primary text-xs">Salvar Pergunta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Flutuante -->
+  <div id="cms-toast" class="info">
+    <i id="toast-icon" data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i>
+    <span id="toast-message">Operação realizada com sucesso!</span>
+  </div>
+
+  <!-- Admin JS Script -->
+  <script src="admin.js"></script>
+</body>
+</html>
