@@ -68,6 +68,8 @@
    - **Obrigação de Meio (Sem Promessa de Êxito):** Foco na prestação de serviço técnico de excelência ("buscar o melhor benefício cabível"), sem prometer causa ganha ou resultados pré-determinados.
    - **Ferramentas de Triagem / Quiz (Art. 4º, § 2º):** O Quiz interativo deve conter aviso explícito informando seu caráter de triagem preliminar automatizada, sendo a consulta formal realizada individualmente pelo advogado.
    - **Identificação Profissional (Art. 4º, § 1º):** Identificação clara e digna dos advogados responsáveis (Dr. André OAB/PR 84.395 e Dra. Isis OAB/PR 82.230) nos locais apropriados do site.
+5. **Smooth Scrolling Editorial (Lenis):**
+   - Implementação de inércia e rolagem amortecida com Lenis (`assets/lenis.min.js`), proporcionando sensação de leveza e navegação fluida de alto padrão, com compensação automática do cabeçalho fixo nos links âncora e pausa inteligente ao abrir modais.
 
 ---
 
