@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // ============================================================================
-// 4. CARREGAMENTO DE DADOS (HÍBRIDO)
+// 4. CARREGAMENTO DE DADOS (HÍBRIDO & LOCAL-FIRST ROBUSTO)
 // ============================================================================
 async function loadInitialData() {
   try {
@@ -88,15 +88,21 @@ async function loadInitialData() {
       }
     }
 
+    // Se não tiver artigos no localStorage (ou array vazio), inicializa com os artigos do site
     if (!state.artigos || state.artigos.length === 0) {
-      try {
-        const res = await fetch('../data/artigos.json');
-        if (res.ok) {
-          state.artigos = await res.json();
-          saveLocalArtigos();
+      if (typeof window !== 'undefined' && window.DEFAULT_ARTIGOS && window.DEFAULT_ARTIGOS.length > 0) {
+        state.artigos = JSON.parse(JSON.stringify(window.DEFAULT_ARTIGOS));
+        saveLocalArtigos();
+      } else {
+        try {
+          const res = await fetch('../data/artigos.json');
+          if (res.ok) {
+            state.artigos = await res.json();
+            saveLocalArtigos();
+          }
+        } catch (err) {
+          console.warn('Fallback fetch artigos:', err);
         }
-      } catch (err) {
-        console.warn('Não foi possível ler ../data/artigos.json via fetch:', err);
       }
     }
 
@@ -110,15 +116,21 @@ async function loadInitialData() {
       }
     }
 
+    // Se não tiver FAQ no localStorage (ou array vazio), inicializa com o FAQ do site
     if (!state.faq || state.faq.length === 0) {
-      try {
-        const res = await fetch('../data/faq.json');
-        if (res.ok) {
-          state.faq = await res.json();
-          saveLocalFaq();
+      if (typeof window !== 'undefined' && window.DEFAULT_FAQ && window.DEFAULT_FAQ.length > 0) {
+        state.faq = JSON.parse(JSON.stringify(window.DEFAULT_FAQ));
+        saveLocalFaq();
+      } else {
+        try {
+          const res = await fetch('../data/faq.json');
+          if (res.ok) {
+            state.faq = await res.json();
+            saveLocalFaq();
+          }
+        } catch (err) {
+          console.warn('Fallback fetch FAQ:', err);
         }
-      } catch (err) {
-        console.warn('Não foi possível ler ../data/faq.json via fetch:', err);
       }
     }
 
@@ -921,6 +933,18 @@ function exportDataBackup() {
 
 async function resetToDefaultData() {
   if (confirm('Atenção: isto restaurará os artigos e perguntas para a configuração original de fábrica. Continuar?')) {
+    if (typeof window !== 'undefined' && window.DEFAULT_ARTIGOS && window.DEFAULT_FAQ) {
+      state.artigos = JSON.parse(JSON.stringify(window.DEFAULT_ARTIGOS));
+      state.faq = JSON.parse(JSON.stringify(window.DEFAULT_FAQ));
+      saveLocalArtigos();
+      saveLocalFaq();
+      renderArticlesTable(state.artigos);
+      renderFaqList(state.faq);
+      updateCounters();
+      showToast('Dados restaurados com sucesso para o padrão de fábrica.');
+      return;
+    }
+
     try {
       const resArt = await fetch('../data/artigos.json');
       const resFaq = await fetch('../data/faq.json');

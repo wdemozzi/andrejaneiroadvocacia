@@ -16,37 +16,37 @@
   },
   {
     "id": "faq-4",
-    "pergunta": "4. Tive meu auxílio-doença negado na perícia do INSS. E agora?",
-    "resposta": "O indeferimento na perícia administrativa é muito comum. Nesses casos, o caminho mais eficaz é ingressar com uma ação na Justiça Federal. Na Justiça, a perícia é realizada por um médico especialista na sua doença (ortopedista, psiquiatra, etc.) e, sendo reconhecida a incapacidade, você recebe todos os valores retroativos desde a data em que o INSS negou."
+    "pergunta": "4. O que é a Aposentadoria Especial e quem tem direito?",
+    "resposta": "É destinada a trabalhadores expostos de forma contínua a agentes físicos, químicos ou biológicos nocivos à saúde (como ruído acima do limite, radiação, produtos químicos, vírus e bactérias). Profissionais da saúde, mecânicos, operadores de máquinas, vigilantes armados e trabalhadores industriais frequentemente têm direito a esse benefício ou à conversão de tempo."
   },
   {
     "id": "faq-5",
-    "pergunta": "5. O que é o BPC/LOAS e quem tem direito a esse benefício?",
-    "resposta": "O BPC (Benefício de Prestação Continuada) é um pagamento mensal de um salário mínimo garantido a idosos com 65 anos ou mais e a pessoas com deficiência de qualquer idade, desde que comprovem baixa renda familiar per capita. Uma das grandes vantagens do BPC é que não exige nenhuma contribuição prévia ao INSS."
+    "pergunta": "5. O que fazer se a perícia do INSS der \"alta\" e eu ainda estiver incapaz de trabalhar?",
+    "resposta": "Você não deve se desesperar nem retornar ao trabalho forçadamente se a sua saúde não permitir. Com laudos médicos atualizados e exames de imagem, ingressamos com uma Ação Judicial contra o INSS na Justiça Federal. Lá, a perícia é realizada por um médico especialista neutro nomeado pelo juiz, e ao vencer a ação, você recebe todos os meses atrasados retroativamente."
   },
   {
     "id": "faq-6",
-    "pergunta": "6. Como funciona o atendimento online para quem não mora em Umuarama - PR?",
-    "resposta": "Nosso escritório possui infraestrutura 100% digital e segura. O segurado de qualquer cidade do Paraná, de outros estados ou brasileiros residentes no exterior é atendido por WhatsApp e videoconferência. Documentos e procurações são assinados digitalmente com validade jurídica pelo próprio celular, com total conforto e sem filas."
+    "pergunta": "6. Quem tem direito ao BPC/LOAS mesmo sem nunca ter pago INSS?",
+    "resposta": "Idosos a partir de 65 anos ou pessoas com deficiência de qualquer idade que comprovem impedimento de longo prazo e estejam em situação de vulnerabilidade social (renda familiar per capita baixa). Não exige contribuição prévia ao INSS e paga 1 salário mínimo mensal vitalício."
   },
   {
     "id": "faq-7",
-    "pergunta": "7. Por que o processo no INSS demora tanto e o que pode ser feito?",
-    "resposta": "O INSS enfrenta filas históricas que frequentemente superam os prazos legais de 30 a 90 dias. Quando a demora se torna abusiva e ilegal, nosso escritório pode impetrar um Mandado de Segurança na Justiça Federal para que o juiz obrigue o INSS a emitir a decisão sob pena de multa diária."
+    "pergunta": "7. Já recebo aposentadoria do INSS. Ainda posso revisar meu valor?",
+    "resposta": "Sim, desde que o primeiro pagamento do benefício tenha ocorrido há menos de 10 anos (prazo decadencial). Analisamos se o INSS cometeu erros de cálculo, deixou de incluir salários mais altos, não considerou vínculos concomitantes ou aplicou índices defasados."
   },
   {
     "id": "faq-8",
-    "pergunta": "8. Quem já está aposentado pode pedir revisão do valor do benefício?",
-    "resposta": "Sim, desde que a concessão tenha ocorrido há menos de 10 anos (prazo de decadência). Analisamos se o INSS deixou de computar períodos insalubres, salários maiores concomitantes, decisões trabalhistas ou erros no cálculo da média contributiva."
+    "pergunta": "8. Como funciona o atendimento 100% online? É seguro?",
+    "resposta": "Totalmente seguro e regulamentado pela OAB. Todos os documentos podem ser enviados em foto ou PDF pelo WhatsApp, os contratos e procurações são assinados eletronicamente no celular com validade jurídica plena, e você acompanha cada andamento por mensagens ou videochamadas."
   },
   {
     "id": "faq-9",
-    "pergunta": "9. Servidor público concursado (RPPS) também pode fazer planejamento?",
-    "resposta": "Sim, e é altamente recomendado. O planejamento para servidores públicos analisa paridade, integralidade, regras de transição próprias e a possibilidade de compensação financeira entre o regime geral (INSS) e o regime próprio, inclusive permitindo acumulação de duas aposentadorias lícitas."
+    "pergunta": "9. Quanto tempo demora para um benefício ser concedido?",
+    "resposta": "Administrativamente, o INSS tem prazo legal de 30 a 90 dias, mas frequentemente ultrapassa esse período. Quando o processo é bem instruído por um advogado, com documentos corretos, a concessão é muito mais rápida. Se houver mora injustificada, impetramos Mandado de Segurança para forçar a decisão judicial imediata."
   },
   {
     "id": "faq-10",
     "pergunta": "10. Como são cobrados os honorários advocatícios?",
-    "resposta": "Nossos honorários seguem rigorosamente os parâmetros de ética e moderação do Código de Ética e da Tabela de Honorários da OAB/PR. Na maioria das ações concessórias e revisionais, os honorários incidem sobre o êxito e parcelas vencidas; para o planejamento previdenciário consultivo, os valores são alinhados previamente com clareza e transparência contratual."
+    "resposta": "Trabalhamos com transparência e ética em conformidade com a tabela da OAB/PR. Para a grande maioria das ações de concessão de benefícios e cobrança de atrasados, nossos honorários principais são pactuados na modalidade de êxito (você só paga ao final, mediante um percentual do proveito econômico obtido). Para consultas e planejamento previdenciário prévio, combinamos o valor do parecer técnico antes de iniciar."
   }
 ]

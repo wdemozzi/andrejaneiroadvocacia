@@ -231,6 +231,9 @@
     </div>
   </footer>
 
+  <!-- Dados Padrão (Local-first & Offline) -->
+  <script src="../data/default-data.js"></script>
+
   <!-- ======================================================================
        SCRIPT DO LEITOR DINÂMICO
        ====================================================================== -->
@@ -261,7 +264,12 @@
         } catch (e) {}
       }
 
-      // 2. Se não encontrar, tentar ler do arquivo seed JSON
+      // 2. Se não encontrar, tentar ler de window.DEFAULT_ARTIGOS (seguro contra CORS local)
+      if (!article && window.DEFAULT_ARTIGOS) {
+        article = window.DEFAULT_ARTIGOS.find(a => a.slug === slug);
+      }
+
+      // 3. Se não encontrar, tentar ler do arquivo seed JSON
       if (!article) {
         try {
           const res = await fetch('../data/artigos.json');

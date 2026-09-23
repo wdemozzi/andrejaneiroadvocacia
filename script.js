@@ -384,30 +384,46 @@ function bindFaqAccordionListeners() {
 // ==========================================================================
 async function initCMSHydration() {
   try {
-    // 1. Hidratar Artigos se existirem no localStorage
+    // 1. Hidratar Artigos (localStorage ou fallback padrão)
+    let artigos = null;
     const localArtigos = localStorage.getItem('ja_artigos');
     if (localArtigos) {
       try {
-        const artigos = JSON.parse(localArtigos);
-        if (Array.isArray(artigos) && artigos.length > 0) {
-          renderPublicArticles(artigos);
+        const parsed = JSON.parse(localArtigos);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          artigos = parsed;
         }
-      } catch (e) {
-        console.warn('Erro ao ler artigos locais:', e);
-      }
+      } catch (e) {}
     }
 
-    // 2. Hidratar FAQ se existir no localStorage
+    if (!artigos && typeof window !== 'undefined' && window.DEFAULT_ARTIGOS) {
+      artigos = window.DEFAULT_ARTIGOS;
+      localStorage.setItem('ja_artigos', JSON.stringify(artigos));
+    }
+
+    if (artigos && artigos.length > 0) {
+      renderPublicArticles(artigos);
+    }
+
+    // 2. Hidratar FAQ (localStorage ou fallback padrão)
+    let faqs = null;
     const localFaq = localStorage.getItem('ja_faq');
     if (localFaq) {
       try {
-        const faqs = JSON.parse(localFaq);
-        if (Array.isArray(faqs) && faqs.length > 0) {
-          renderPublicFaq(faqs);
+        const parsedFaq = JSON.parse(localFaq);
+        if (Array.isArray(parsedFaq) && parsedFaq.length > 0) {
+          faqs = parsedFaq;
         }
-      } catch (e) {
-        console.warn('Erro ao ler FAQ local:', e);
-      }
+      } catch (e) {}
+    }
+
+    if (!faqs && typeof window !== 'undefined' && window.DEFAULT_FAQ) {
+      faqs = window.DEFAULT_FAQ;
+      localStorage.setItem('ja_faq', JSON.stringify(faqs));
+    }
+
+    if (faqs && faqs.length > 0) {
+      renderPublicFaq(faqs);
     }
 
     // 3. Sincronização em Nuvem (Supabase) em segundo plano, se configurada
