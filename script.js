@@ -3,6 +3,42 @@
  * Interatividade: Header Glassmorphism, FAQ, Modais de Áreas e Quiz de Diagnóstico
  */
 
+// ==========================================================================
+// SMOOTH SCROLLING EDITORIAL (LENIS) — LEVEZA & INÉRCIA FLUIDA
+// ==========================================================================
+let lenis = null;
+
+if (typeof Lenis !== 'undefined') {
+  lenis = new Lenis({
+    duration: 1.25, // Inércia suave e amortecida (estética de luxo editorial)
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Curva exponencial macia
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 0.92, // Roda do mouse amortecida sem trancos
+    touchMultiplier: 1.3,
+    infinite: false,
+    autoRaf: true,
+  });
+
+  // Conectar âncoras para rolagem fluida e precisa compensando o header (-80px)
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId !== '#' && targetId.startsWith('#')) {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          lenis.scrollTo(targetEl, {
+            offset: -80,
+            duration: 1.25,
+          });
+        }
+      }
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Inicializar Ícones Lucide
   if (window.lucide) {
@@ -12,13 +48,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. Header Glassmorphism no Scroll
   const mainHeader = document.getElementById('main-header');
   if (mainHeader) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 40) {
+    const handleScroll = () => {
+      const scrollY = lenis ? lenis.scroll : window.scrollY;
+      if (scrollY > 40) {
         mainHeader.classList.add('header-scrolled');
       } else {
         mainHeader.classList.remove('header-scrolled');
       }
-    });
+    };
+    if (lenis) {
+      lenis.on('scroll', handleScroll);
+    } else {
+      window.addEventListener('scroll', handleScroll);
+    }
   }
 
   // 3. Menu Mobile Toggle
@@ -194,6 +236,7 @@ function openAreaModal(areaKey) {
   if (modalBackdrop) {
     modalBackdrop.classList.add('active');
     document.body.style.overflow = 'hidden';
+    if (lenis) lenis.stop();
   }
 }
 
@@ -202,6 +245,7 @@ function closeAreaModal() {
   if (modalBackdrop) {
     modalBackdrop.classList.remove('active');
     document.body.style.overflow = '';
+    if (lenis) lenis.start();
   }
 }
 
