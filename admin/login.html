@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Administrativo | Janeiro Advocacia &amp; Consultoria</title>
-  <link rel="icon" type="image/png" href="../assets/logo-icon.png">
+  <link rel="icon" type="image/png" href="/assets/logo-icon.png">
+  <script>
+    if (window.location.protocol === 'file:') {
+      const fav = document.querySelector('link[rel="icon"]');
+      if (fav) fav.href = '../assets/logo-icon.png';
+    }
+  </script>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,8 +63,8 @@
 
       <!-- Cabeçalho do Card -->
       <div class="text-center mb-8">
-        <a href="../index.html" title="Voltar ao site público" class="inline-block group mb-4 transition-transform hover:scale-105">
-          <img src="../assets/logo-transparent.png" alt="Janeiro Advocacia &amp; Consultoria" class="h-12 w-auto mx-auto object-contain">
+        <a href="/" title="Voltar ao site público" class="inline-block group mb-4 transition-transform hover:scale-105">
+          <img src="/assets/logo-transparent.png" alt="Janeiro Advocacia &amp; Consultoria" class="h-12 w-auto mx-auto object-contain" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='../assets/logo-transparent.png';}">
         </a>
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-deep/80 border border-gold/40 text-gold text-[10px] uppercase font-bold tracking-widest mb-3">
           <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
@@ -123,7 +129,7 @@
 
       <!-- Rodapé do Card -->
       <div class="mt-8 pt-6 border-t border-slate-800 text-center">
-        <a href="../index.html" class="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-gold transition-colors font-medium">
+        <a href="/" class="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-gold transition-colors font-medium">
           <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
           <span>Voltar para o Site Oficial</span>
         </a>
@@ -189,7 +195,7 @@
           }
 
           // Redirecionar ao painel
-          window.location.href = window.location.protocol === 'file:' ? 'index.html' : '/admin/index.html';
+          window.location.href = window.location.protocol === 'file:' ? 'index.html' : '/admin';
         } else {
           btnSubmit.disabled = false;
           btnSubmit.innerHTML = '<i data-lucide="log-in" class="w-4 h-4"></i><span>Entrar no Painel</span>';
@@ -207,7 +213,7 @@
       try {
         const parsed = JSON.parse(currentSession);
         if (parsed && parsed.token) {
-          window.location.href = window.location.protocol === 'file:' ? 'index.html' : '/admin/index.html';
+          window.location.href = window.location.protocol === 'file:' ? 'index.html' : '/admin';
         }
       } catch (err) {}
     }

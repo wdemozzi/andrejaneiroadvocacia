@@ -9,7 +9,7 @@
 // ============================================================================
 (function checkAuth() {
   const session = sessionStorage.getItem('ja_admin_session') || localStorage.getItem('ja_admin_session');
-  const loginUrl = window.location.protocol === 'file:' ? 'login.html' : '/admin/login.html';
+  const loginUrl = window.location.protocol === 'file:' ? 'login.html' : '/admin/login';
   if (!session) {
     window.location.href = loginUrl;
     return;
@@ -29,7 +29,7 @@ function handleLogout() {
   if (confirm('Deseja realmente sair do painel administrativo?')) {
     sessionStorage.removeItem('ja_admin_session');
     localStorage.removeItem('ja_admin_session');
-    window.location.href = window.location.protocol === 'file:' ? 'login.html' : '/admin/login.html';
+    window.location.href = window.location.protocol === 'file:' ? 'login.html' : '/admin/login';
   }
 }
 
@@ -96,7 +96,8 @@ async function loadInitialData() {
         saveLocalArtigos();
       } else {
         try {
-          const res = await fetch('../data/artigos.json');
+          const fetchUrl = window.location.protocol === 'file:' ? '../data/artigos.json' : '/data/artigos.json';
+          const res = await fetch(fetchUrl);
           if (res.ok) {
             state.artigos = await res.json();
             saveLocalArtigos();
@@ -124,7 +125,8 @@ async function loadInitialData() {
         saveLocalFaq();
       } else {
         try {
-          const res = await fetch('../data/faq.json');
+          const fetchUrl = window.location.protocol === 'file:' ? '../data/faq.json' : '/data/faq.json';
+          const res = await fetch(fetchUrl);
           if (res.ok) {
             state.faq = await res.json();
             saveLocalFaq();
@@ -249,8 +251,10 @@ function renderArticlesTable(articles) {
   }
 
   tbody.innerHTML = articles.map(article => {
-    const imgUrl = article.imagem || '../assets/logo-icon.png';
-    const linkUrl = article.urlEstatica ? `../${article.urlEstatica}` : `../artigos/artigo.html?slug=${article.slug}`;
+    const defaultIcon = window.location.protocol === 'file:' ? '../assets/logo-icon.png' : '/assets/logo-icon.png';
+    const imgUrl = article.imagem || defaultIcon;
+    const baseRoot = window.location.protocol === 'file:' ? '../' : '/';
+    const linkUrl = article.urlEstatica ? `${baseRoot}${article.urlEstatica}` : `${baseRoot}artigos/artigo.html?slug=${article.slug}`;
     const authorName = (article.autor || 'Janeiro Advocacia').split('|')[0];
     const dataFormatada = article.dataPublicacao ? formatDateBR(article.dataPublicacao) : 'Recente';
 
@@ -258,7 +262,7 @@ function renderArticlesTable(articles) {
       <tr class="hover:bg-slate-50/70 transition-colors">
         <td>
           <img src="${imgUrl}" alt="${escapeHtml(article.titulo)}"
-               onerror="this.src='../assets/logo-icon.png'"
+               onerror="this.src='${defaultIcon}'"
                class="w-12 h-12 object-cover rounded-lg border border-slate-200">
         </td>
         <td>
@@ -1069,8 +1073,9 @@ async function resetToDefaultData() {
     }
 
     try {
-      const resArt = await fetch('../data/artigos.json');
-      const resFaq = await fetch('../data/faq.json');
+      const dataPrefix = window.location.protocol === 'file:' ? '../data/' : '/data/';
+      const resArt = await fetch(`${dataPrefix}artigos.json`);
+      const resFaq = await fetch(`${dataPrefix}faq.json`);
       if (resArt.ok && resFaq.ok) {
         state.artigos = await resArt.json();
         state.faq = await resFaq.json();

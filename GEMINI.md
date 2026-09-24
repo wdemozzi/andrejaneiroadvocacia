@@ -111,10 +111,11 @@
 O escritório conta com um **Painel de Gestão de Conteúdo (CMS)** integrado para que os advogados possam criar, editar e excluir artigos do blog e perguntas do FAQ sem necessidade de programar.
 
 ### 🔑 Acesso Administrativo
-- **URL do Portal:** `admin/login.html` (ou via link discreto no rodapé do site principal)
+- **URL do Portal:** `/admin` ou `/admin/login` (Acesso restrito e invisível ao público geral, removido do rodapé)
 - **E-mail Padrão:** `contato@janeiroadvocacia.com.br`
 - **Senha Padrão Inicial:** `janeiro@2026` (personalizável via localStorage `ja_admin_password`)
 - **Sessão:** Armazenada via `sessionStorage` e `localStorage` com expiração e guarda de rota segura.
+- **Roteamento Vercel:** Rota estática `/admin` reescrita para `/admin/index.html` com suporte universal a assets root-relative (`/admin/admin.css`, `/admin/admin.js`, `/data/default-data.js`).
 
 ### ⚙️ Arquitetura Híbrida (Opção 1)
 1. **Local-First Imediato (Zero Fricção & CORS-Free):**
