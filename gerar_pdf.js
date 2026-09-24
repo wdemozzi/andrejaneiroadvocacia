@@ -467,7 +467,7 @@ const htmlContent = `<!DOCTYPE html>
             <td style="text-align: center;"><strong>Dobra 9</strong></td>
             <td><strong>Artigos Clínicos (SEO)</strong></td>
             <td>Atração orgânica E-E-A-T no Google</td>
-            <td>3 artigos aprofundados com dados estruturados Schema.org Article (regras de transição, planejamento e auxílio).</td>
+            <td>3 artigos aprofundados com dados estruturados Schema.org Article + Painel Administrativo CMS para gestão e upload de fotos.</td>
           </tr>
           <tr>
             <td style="text-align: center;"><strong>Dobra 10</strong></td>
@@ -523,8 +523,8 @@ const htmlContent = `<!DOCTYPE html>
         <p style="font-size: 10px; color: #64748B; margin-bottom: 8px;">Fixado no topo com efeito vidro fosco sofisticado.</p>
         <div style="background: #FAF9F5; border: 1px solid #EAE5DE; border-radius: 6px; padding: 8px; font-size: 9.5px; color: #334155;">
           <div style="margin-bottom: 4px;">• <strong>Logotipo Fiel Original:</strong> Monograma JA em harmonia diagonal e tipografia original, mantendo o menu leve e limpo (sem números de OAB no topo).</div>
+          <div style="margin-bottom: 4px;">• <strong>Rolagem Fluida (Lenis):</strong> Inércia e amortecimento editorial em toda a navegação.</div>
           <div style="margin-bottom: 4px;">• <strong>Indicador Ativo:</strong> Ponto verde pulsante informando plantão de atendimento.</div>
-          <div style="margin-bottom: 4px;">• <strong>Atalhos Dinâmicos:</strong> Menu âncora suave para todas as seções.</div>
           <div>• <strong>Botão de Ação:</strong> WhatsApp direto para triagem rápida.</div>
         </div>
       </div>
@@ -809,10 +809,10 @@ const htmlContent = `<!DOCTYPE html>
     </div>
 
     <div>
-      <div class="pill-badge">Autoridade Orgânica no Google</div>
-      <h2 class="slide-heading">3 Artigos Clínicos e Técnicos Dedicados</h2>
+      <div class="pill-badge">Autoridade Orgânica no Google & Autonomia Editorial</div>
+      <h2 class="slide-heading">Núcleo de Artigos E-E-A-T & Painel CMS Integrado</h2>
       <p class="slide-subtitle">
-        Criação de páginas internas profundas com dados estruturados Schema.org Article, metadados Open Graph e links de conversão contextuais.
+        Páginas internas com Schema.org Article, aliadas ao Painel Administrativo com editor visual e upload de fotos do computador.
       </p>
     </div>
 
@@ -854,6 +854,22 @@ const htmlContent = `<!DOCTYPE html>
           <div style="margin-bottom: 3px;">• Importância da prova pericial com médico perito especialista judicial.</div>
           <div>• <strong>CTA Contextual:</strong> Orientação urgente sobre laudos e prazos.</div>
         </div>
+      </div>
+    </div>
+
+    <!-- Banner CMS -->
+    <div style="background: #0D1B2A; color: #FAF9F5; border: 1px solid rgba(212, 163, 89, 0.45); border-radius: 8px; padding: 7px 12px; margin-top: 1.5mm; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+      <div>
+        <div style="color: #D4A359; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; display: flex; align-items: center; gap: 6px;">
+          <span>💻 Painel Administrativo CMS Integrado (/admin)</span>
+          <span style="background: rgba(212,163,89,0.2); color: #FAF9F5; padding: 1px 6px; border-radius: 9999px; font-size: 7.5px;">Local-First + Nuvem</span>
+        </div>
+        <div style="font-size: 8.5px; color: #CBD5E1; margin-top: 2px; line-height: 1.35;">
+          Autonomia completa para os advogados: editor visual com ferramentas de formatação, contador de SEO, gestão de FAQ e <strong>upload de fotos do computador</strong> com compressão inteligente.
+        </div>
+      </div>
+      <div style="background: #D4A359; color: #0D1B2A; font-weight: 700; font-size: 8.5px; padding: 4px 10px; border-radius: 6px; white-space: nowrap;">
+        Zero Dependência Técnica
       </div>
     </div>
 
@@ -1052,7 +1068,7 @@ const htmlContent = `<!DOCTYPE html>
             <strong style="font-size: 11px; color: #0D1B2A;">Entrada de Implantação:</strong>
             <span style="font-size: 13px; font-weight: 700; color: #D4A359;">R$ 700,00</span>
           </div>
-          <div style="font-size: 8.5px; color: #64748B; margin-top: 2px;">Cobre desenvolvimento, direção de arte, 12 dobras, 3 artigos E-E-A-T, SEO e configuração do repositório Git.</div>
+          <div style="font-size: 8.5px; color: #64748B; margin-top: 2px;">Cobre desenvolvimento, direção de arte, 12 dobras, Painel Administrativo CMS (artigos, FAQ e upload de fotos), 3 artigos E-E-A-T, SEO e configuração Git.</div>
         </div>
 
         <div style="background: #FDFCF9; border: 1px solid #EAE5DE; border-radius: 6px; padding: 8px 10px; margin-bottom: 6px;">
@@ -1155,23 +1171,48 @@ fs.writeFileSync(path.join(__dirname, 'apresentacao.html'), webHtml, 'utf-8');
 console.log('apresentacao.html gerado com sucesso.');
 
 // 4. Disparar o Microsoft Edge Headless para gerar o PDF
-const pdfPath = path.join(__dirname, 'Apresentacao_Janeiro_Advocacia.pdf');
+const tempPdfPath = path.join(__dirname, 'temp_deck_render.pdf');
+const finalPdfPath = path.join(__dirname, 'Apresentacao_Janeiro_Advocacia.pdf');
+const altPdfPath = path.join(__dirname, 'Apresentacao_Janeiro_Advocacia_Atualizada.pdf');
 const edgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
 
 console.log('Iniciando renderização de alta qualidade do PDF via Microsoft Edge...');
-const cmd = `"${edgePath}" --headless --disable-gpu --print-to-pdf="${pdfPath}" --no-pdf-header-footer "file:///${htmlPath.replace(/\\\\/g, '/')}"`;
+const cmd = `"${edgePath}" --headless --disable-gpu --print-to-pdf="${tempPdfPath}" --no-pdf-header-footer "file:///${htmlPath.replace(/\\\\/g, '/')}"`;
 
 try {
   execSync(cmd);
-  console.log('PDF gerado com sucesso: ' + pdfPath);
-  const stats = fs.statSync(pdfPath);
-  console.log('Tamanho do arquivo PDF: ' + stats.size + ' bytes');
+  if (!fs.existsSync(tempPdfPath)) {
+    throw new Error('Arquivo temp_deck_render.pdf não foi criado pelo Edge.');
+  }
+  const stats = fs.statSync(tempPdfPath);
+  console.log('PDF gerado no arquivo temporário: ' + stats.size + ' bytes');
   
-  // Copiar também para o diretório de artifacts do brain para facilitar visualização
+  // Tentar atualizar Apresentacao_Janeiro_Advocacia.pdf no scratch
+  let savedPath = finalPdfPath;
+  try {
+    fs.copyFileSync(tempPdfPath, finalPdfPath);
+    console.log('Apresentacao_Janeiro_Advocacia.pdf atualizado com sucesso no scratch.');
+  } catch (errCopy) {
+    console.warn('Aviso: Apresentacao_Janeiro_Advocacia.pdf está aberto em outro programa. Salvando como Apresentacao_Janeiro_Advocacia_Atualizada.pdf');
+    fs.copyFileSync(tempPdfPath, altPdfPath);
+    savedPath = altPdfPath;
+  }
+
+  // Copiar para o diretório de artifacts do brain
   const brainDir = 'C:\\Users\\Usuário\\.gemini\\antigravity\\brain\\8cc9253e-f1bc-404e-a07c-96fa1d05c8b2';
   const brainPdf = path.join(brainDir, 'Apresentacao_Janeiro_Advocacia.pdf');
-  fs.copyFileSync(pdfPath, brainPdf);
-  console.log('Cópia do PDF sincronizada no brain: ' + brainPdf);
+  const brainPdfAlt = path.join(brainDir, 'Apresentacao_Janeiro_Advocacia_Atualizada.pdf');
+  try {
+    fs.copyFileSync(tempPdfPath, brainPdf);
+    console.log('Cópia sincronizada no brain: ' + brainPdf);
+  } catch (e) {
+    console.warn('Brain PDF padrão ocupado, salvando alternativo...');
+  }
+  fs.copyFileSync(tempPdfPath, brainPdfAlt);
+
+  // Remover arquivo temporário
+  fs.unlinkSync(tempPdfPath);
+  console.log('Processo de geração concluído com sucesso!');
 } catch (err) {
   console.error('Erro ao gerar o PDF:', err);
   process.exit(1);
