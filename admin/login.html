@@ -90,16 +90,14 @@
           <div class="relative">
             <i data-lucide="mail" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
             <input type="email" id="email" required
-                   value="contato@janeiroadvocacia.com.br"
                    class="w-full pl-10 pr-4 py-3 bg-navy-deep/90 border border-slate-700/80 focus:border-gold rounded-xl text-sm text-offwhite placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-gold transition-all"
                    placeholder="seu@janeiroadvocacia.com.br">
           </div>
         </div>
 
         <div>
-          <label for="password" class="block text-xs uppercase tracking-wider font-semibold text-slate-300 mb-1.5 flex justify-between">
-            <span>Senha</span>
-            <span class="text-[10px] text-gold/80 font-normal normal-case">Padrão inicial: janeiro@2026</span>
+          <label for="password" class="block text-xs uppercase tracking-wider font-semibold text-slate-300 mb-1.5">
+            Senha
           </label>
           <div class="relative">
             <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
@@ -172,7 +170,7 @@
       const errorMsg = document.getElementById('login-error-msg');
       const btnSubmit = document.getElementById('btn-submit');
 
-      // Senha administrativa padrão de fábrica: janeiro@2026 ou credencial configurada
+      // Validação de credenciais administrativas
       const customPass = localStorage.getItem('ja_admin_password');
       const validPass = customPass || 'janeiro@2026';
 
@@ -182,7 +180,7 @@
       lucide.createIcons();
 
       setTimeout(() => {
-        if (password === validPass || (email.includes('janeiro') && password === 'janeiro@2026') || password === 'admin') {
+        if (password === validPass) {
           // Salvar sessão
           const sessionData = {
             user: email,
@@ -202,7 +200,7 @@
           lucide.createIcons();
           
           errorBox.classList.remove('hidden');
-          errorMsg.textContent = 'Senha incorreta. A senha padrão do escritório é: janeiro@2026';
+          errorMsg.textContent = 'E-mail ou senha incorretos.';
         }
       }, 400);
     }
