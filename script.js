@@ -505,7 +505,9 @@ function renderPublicFaq(faqs) {
 }
 
 async function syncPublicFromSupabase(config) {
-  const { url, key } = config;
+  let { url, key } = config;
+  if (!url || !key) return;
+  url = url.trim().replace(/\/+$/, '').replace(/\/rest\/v1\/?$/i, '').replace(/\/+$/, '');
   try {
     // Sincronizar Artigos
     const resArt = await fetch(`${url}/rest/v1/artigos?select=*&order=data_publicacao.desc`, {

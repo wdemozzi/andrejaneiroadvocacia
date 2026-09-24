@@ -804,11 +804,27 @@ async function deleteFaq(id) {
 // ============================================================================
 // 9. SINCRONIZAÇÃO EM NUVEM (SUPABASE) & BACKUP
 // ============================================================================
+function normalizeSupabaseUrl(rawUrl) {
+  if (!rawUrl) return '';
+  let u = rawUrl.trim();
+  if (!/^https?:\/\//i.test(u)) {
+    u = 'https://' + u;
+  }
+  u = u.replace(/\/+$/, '');
+  // Se o usuário colou com /rest/v1 no final, remove para manter apenas a URL base do projeto
+  u = u.replace(/\/rest\/v1\/?$/i, '');
+  u = u.replace(/\/+$/, '');
+  return u;
+}
+
 function loadSupabaseConfig() {
   const stored = localStorage.getItem(STORAGE_KEYS.SUPABASE);
   if (stored) {
     try {
       state.supabaseConfig = JSON.parse(stored);
+      if (state.supabaseConfig.url) {
+        state.supabaseConfig.url = normalizeSupabaseUrl(state.supabaseConfig.url);
+      }
       const urlInput = document.getElementById('supabase-url');
       const keyInput = document.getElementById('supabase-key');
       if (urlInput) urlInput.value = state.supabaseConfig.url || '';
@@ -818,19 +834,24 @@ function loadSupabaseConfig() {
 }
 
 function saveSupabaseConfig() {
-  const url = document.getElementById('supabase-url').value.trim().replace(/\/$/, '');
+  const rawUrl = document.getElementById('supabase-url').value;
+  const url = normalizeSupabaseUrl(rawUrl);
   const key = document.getElementById('supabase-key').value.trim();
+
+  // Atualiza visualmente o input no formulário com a URL normalizada
+  document.getElementById('supabase-url').value = url;
 
   state.supabaseConfig = { url, key };
   localStorage.setItem(STORAGE_KEYS.SUPABASE, JSON.stringify(state.supabaseConfig));
 
   checkCloudStatus();
-  showToast('Configurações salvas. Testando conexão...');
+  showToast('Configurações salvas. Testando conexão com a tabela artigos...');
   testSupabaseConnection();
 }
 
 async function testSupabaseConnection() {
-  const { url, key } = state.supabaseConfig;
+  let { url, key } = state.supabaseConfig;
+  url = normalizeSupabaseUrl(url);
   if (!url || !key) {
     showToast('Informe a URL e a Anon Key do Supabase.', 'error');
     return;
@@ -849,16 +870,49 @@ async function testSupabaseConnection() {
       checkCloudStatus(true);
       syncWithSupabaseInBackground();
     } else {
-      const errText = await res.text();
-      console.warn('Erro Supabase:', errText);
-      showToast(`Erro na resposta do Supabase (${res.status}). Verifique as tabelas.`, 'error');
+      let errDetails = '';
+      try {
+        const errJson = await res.json();
+        errDetails = errJson.message || errJson.hint || JSON.stringify(errJson);
+      } catch (e) {
+        errDetails = await res.text();
+      }
+      console.warn('Erro Supabase:', res.status, errDetails);
+      if (res.status === 404) {
+        showToast('Erro 404: Tabela "artigos" não encontrada. Execute o código SQL no SQL Editor do Supabase.', 'error');
+      } else if (res.status === 401 || res.status === 403) {
+        showToast(`Erro ${res.status}: Anon Key inválida ou permissão negada. Verifique as chaves em Project Settings > API.`, 'error');
+      } else {
+        showToast(`Erro na resposta do Supabase (${res.status}): ${errDetails}`, 'error');
+      }
       checkCloudStatus(false);
     }
   } catch (err) {
     console.error('Falha de conexão com Supabase:', err);
-    showToast('Não foi possível conectar ao Supabase. Verifique a URL e conexão de rede.', 'error');
+    showToast('Não foi possível conectar ao Supabase. Verifique a URL e sua conexão.', 'error');
     checkCloudStatus(false);
   }
+}
+
+function copySqlScript() {
+  const codeEl = document.getElementById('supabase-sql-code');
+  if (!codeEl) return;
+  const sql = codeEl.innerText.trim();
+  navigator.clipboard.writeText(sql).then(() => {
+    const btn = document.getElementById('btn-copy-sql');
+    if (btn) {
+      const origHtml = btn.innerHTML;
+      btn.innerHTML = '<i data-lucide="check" class="w-3 h-3 text-emerald-400"></i><span>Copiado!</span>';
+      if (window.lucide) window.lucide.createIcons();
+      setTimeout(() => {
+        btn.innerHTML = origHtml;
+        if (window.lucide) window.lucide.createIcons();
+      }, 2000);
+    }
+    showToast('Código SQL copiado para a área de transferência!', 'success');
+  }).catch(() => {
+    showToast('Não foi possível copiar automaticamente. Selecione e copie o código manualmente.', 'error');
+  });
 }
 
 function checkCloudStatus(isOnline = null) {

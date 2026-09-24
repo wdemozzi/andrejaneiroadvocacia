@@ -478,14 +478,20 @@
               <div class="space-y-4">
                 <div>
                   <label for="supabase-url" class="block text-xs font-semibold text-slate-700 mb-1">Supabase Project URL:</label>
-                  <input type="text" id="supabase-url" placeholder="https://seu-projeto.supabase.co"
+                  <input type="text" id="supabase-url" placeholder="https://seu-id.supabase.co"
                          class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-mono focus:outline-none focus:border-gold">
+                  <p class="text-[11px] text-slate-400 mt-1">
+                    Cole a URL do projeto (ex: <code class="text-navy font-semibold">https://seu-id.supabase.co</code>). O sistema limpa <code class="text-slate-500">/rest/v1</code> automaticamente se colado.
+                  </p>
                 </div>
 
                 <div>
                   <label for="supabase-key" class="block text-xs font-semibold text-slate-700 mb-1">Supabase Anon Key (Chave Pública):</label>
                   <input type="password" id="supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..."
                          class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-mono focus:outline-none focus:border-gold">
+                  <p class="text-[11px] text-slate-400 mt-1">
+                    Encontrada no painel Supabase em: <em>Project Settings &gt; API &gt; Project API keys (anon public)</em>.
+                  </p>
                 </div>
 
                 <div class="pt-2 flex flex-wrap gap-3">
@@ -537,9 +543,8 @@
               </ol>
 
               <div class="mt-3 relative">
-                <pre class="bg-navy text-slate-300 p-3 rounded-lg text-[10px] font-mono overflow-x-auto max-h-48 leading-relaxed">
--- Criar Tabela de Artigos
-create table artigos (
+                <pre id="supabase-sql-code" class="bg-navy text-slate-300 p-3 rounded-lg text-[10px] font-mono overflow-x-auto max-h-48 leading-relaxed">-- 1. Criar Tabela de Artigos
+create table if not exists artigos (
   id text primary key,
   slug text unique not null,
   titulo text not null,
@@ -550,23 +555,34 @@ create table artigos (
   autor_oab text,
   data_publicacao date not null,
   tempo_leitura text,
-  conteudo_html text not null
+  conteudo_html text not null,
+  url_estatica text
 );
 
--- Criar Tabela de FAQ
-create table faq (
+-- 2. Criar Tabela de FAQ
+create table if not exists faq (
   id text primary key,
   pergunta text not null,
   resposta text not null
 );
 
--- Habilitar Leitura Pública
+-- 3. Habilitar Segurança em Linha (RLS)
 alter table artigos enable row level security;
 alter table faq enable row level security;
-create policy "Leitura pública artigos" on artigos for select using (true);
-create policy "Leitura pública faq" on faq for select using (true);
-                </pre>
-                <button onclick="copySqlScript()" class="absolute top-2 right-2 px-2 py-1 bg-navy-light text-gold text-[10px] rounded hover:bg-slate-700">Copiar</button>
+
+-- 4. Liberar Políticas para Chave Anon (Leitura e Gravação pelo CMS)
+drop policy if exists "Acesso total artigos" on artigos;
+drop policy if exists "Leitura pública artigos" on artigos;
+create policy "Acesso total artigos" on artigos for all using (true) with check (true);
+
+drop policy if exists "Acesso total faq" on faq;
+drop policy if exists "Leitura pública faq" on faq;
+create policy "Acesso total faq" on faq for all using (true) with check (true);
+</pre>
+                <button onclick="copySqlScript()" id="btn-copy-sql" class="absolute top-2 right-2 px-2.5 py-1 bg-navy-light text-gold text-[10px] font-semibold rounded hover:bg-slate-700 transition-colors flex items-center gap-1">
+                  <i data-lucide="copy" class="w-3 h-3"></i>
+                  <span>Copiar</span>
+                </button>
               </div>
 
               <div class="mt-3 text-[11px] text-slate-500">
