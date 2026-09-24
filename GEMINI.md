@@ -137,4 +137,19 @@ O escritório conta com um **Painel de Gestão de Conteúdo (CMS)** integrado pa
 5. **Leitor Dinâmico de Artigos (`artigos/artigo.html`):**
    - Artigos novos criados pelo painel são renderizados dinamicamente pelo leitor via parâmetro `?slug=meu-artigo`, mantendo a tipografia editorial nobre, cabeçalho glassmorphism e CTA com lead tracking no WhatsApp.
 
+---
+
+## 🚀 8. Repositório Git & Deploy Contínuo
+
+- **Repositório Oficial no GitHub:** [`https://github.com/wdemozzi/andrejaneiroadvocacia`](https://github.com/wdemozzi/andrejaneiroadvocacia)
+- **Branch de Produção:** `main`
+- **Comando de Sincronização:**
+  ```bash
+  git add -A
+  git commit -m "feat/fix: mensagem de atualização"
+  git push origin main
+  ```
+- **Hospedagem Recomendada:** Vercel ou Cloudflare Pages conectado diretamente ao repositório GitHub, garantindo deploys automáticos em CDN global ultrarrápida a cada push.
+
+
 
