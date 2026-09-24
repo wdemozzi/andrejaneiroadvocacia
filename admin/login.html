@@ -189,7 +189,7 @@
           }
 
           // Redirecionar ao painel
-          window.location.href = 'index.html';
+          window.location.href = window.location.protocol === 'file:' ? 'index.html' : '/admin/index.html';
         } else {
           btnSubmit.disabled = false;
           btnSubmit.innerHTML = '<i data-lucide="log-in" class="w-4 h-4"></i><span>Entrar no Painel</span>';
@@ -207,7 +207,7 @@
       try {
         const parsed = JSON.parse(currentSession);
         if (parsed && parsed.token) {
-          window.location.href = 'index.html';
+          window.location.href = window.location.protocol === 'file:' ? 'index.html' : '/admin/index.html';
         }
       } catch (err) {}
     }

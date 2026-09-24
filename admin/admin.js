@@ -9,18 +9,19 @@
 // ============================================================================
 (function checkAuth() {
   const session = sessionStorage.getItem('ja_admin_session') || localStorage.getItem('ja_admin_session');
+  const loginUrl = window.location.protocol === 'file:' ? 'login.html' : '/admin/login.html';
   if (!session) {
-    window.location.href = 'login.html';
+    window.location.href = loginUrl;
     return;
   }
   try {
     const data = JSON.parse(session);
     if (!data || !data.token) {
-      window.location.href = 'login.html';
+      window.location.href = loginUrl;
       return;
     }
   } catch (err) {
-    window.location.href = 'login.html';
+    window.location.href = loginUrl;
   }
 })();
 
@@ -28,7 +29,7 @@ function handleLogout() {
   if (confirm('Deseja realmente sair do painel administrativo?')) {
     sessionStorage.removeItem('ja_admin_session');
     localStorage.removeItem('ja_admin_session');
-    window.location.href = 'login.html';
+    window.location.href = window.location.protocol === 'file:' ? 'login.html' : '/admin/login.html';
   }
 }
 
