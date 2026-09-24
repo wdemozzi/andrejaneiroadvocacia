@@ -123,7 +123,7 @@ const areasData = {
       "Análise de retorno financeiro (ROI): saber exatamente se vale a pena aumentar ou diminuir as contribuições.",
       "Prevenção contra aposentadorias precoces com redução brusca por fator previdenciário ou coeficientes baixos."
     ],
-    whatsappMsg: "Olá, gostaria de saber mais sobre o Planejamento Previdenciário e agendar uma análise consultiva."
+    whatsappMsg: "Olá, vim pelo site e gostaria de saber mais sobre o Planejamento Previdenciário e agendar uma análise consultiva."
   },
   aposentadorias: {
     tag: "Requerimentos INSS & Servidores",
@@ -136,7 +136,7 @@ const areasData = {
       "Aposentadorias de Servidores Públicos municipais, estaduais e federais (Regimes Próprios).",
       "Aposentadoria da Pessoa com Deficiência (PcD) com contagem de tempo reduzida."
     ],
-    whatsappMsg: "Olá, gostaria de orientação jurídica para dar entrada no meu pedido de aposentadoria."
+    whatsappMsg: "Olá, vim pelo site e gostaria de orientação jurídica para dar entrada no meu pedido de aposentadoria."
   },
   incapacidade: {
     tag: "Benefícios por Incapacidade",
@@ -149,7 +149,7 @@ const areasData = {
       "Auxílio-Acidente: indenização mensal cumulativa com o salário para segurados que ficaram com sequelas redutoras de capacidade.",
       "Preparação técnica e documental para a perícia médica e judicial com quesitos específicos."
     ],
-    whatsappMsg: "Olá, tive meu benefício por incapacidade (auxílio-doença) negado no INSS e preciso de ajuda jurídica."
+    whatsappMsg: "Olá, vim pelo site e tive meu benefício por incapacidade (auxílio-doença) negado no INSS, preciso de ajuda jurídica."
   },
   bpc: {
     tag: "Assistência Social",
@@ -162,7 +162,7 @@ const areasData = {
       "Combate ao corte arbitrário do benefício por averiguações cadastrais do CadÚnico.",
       "Requerimento administrativo e ações judiciais com pedido de tutela de urgência."
     ],
-    whatsappMsg: "Olá, gostaria de saber se minha família tem direito ao benefício BPC/LOAS."
+    whatsappMsg: "Olá, vim pelo site e gostaria de saber se minha família tem direito ao benefício BPC/LOAS."
   },
   revisoes: {
     tag: "Recuperação de Valores",
@@ -175,7 +175,7 @@ const areasData = {
       "Revisão para inclusão de tempo militar, período rural e tempo trabalhado em regime insalubre sem conversão.",
       "Pareceres técnicos e cálculos periciais para outros advogados e escritórios parceiros."
     ],
-    whatsappMsg: "Olá, já recebo aposentadoria do INSS e gostaria de analisar se meu benefício tem direito a revisão."
+    whatsappMsg: "Olá, vim pelo site e já recebo aposentadoria do INSS, gostaria de analisar se meu benefício tem direito a revisão."
   }
 };
 
@@ -319,7 +319,7 @@ function renderQuizResult() {
   }
 
   if (whatsappCta) {
-    const msg = `Olá, fiz o diagnóstico previdenciário no site da Janeiro Advocacia!\n\n• Objetivo: ${quizAnswers.objetivo}\n• Situação: ${quizAnswers.situacao}\n• Atendimento: ${quizAnswers.atendimento}\n\nGostaria de agendar uma consulta para avaliar meu caso.`;
+    const msg = `Olá, vim pelo site e fiz o diagnóstico previdenciário!\n\n• Objetivo: ${quizAnswers.objetivo}\n• Situação: ${quizAnswers.situacao}\n• Atendimento: ${quizAnswers.atendimento}\n\nGostaria de agendar uma consulta para avaliar meu caso.`;
     whatsappCta.href = `https://wa.me/5544988442379?text=${encodeURIComponent(msg)}`;
   }
 }

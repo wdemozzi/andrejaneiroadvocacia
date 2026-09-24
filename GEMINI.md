@@ -60,8 +60,9 @@
 2. **Proibição Absoluta de Imagens Clichês:**
    - Proibido usar martelos de juiz de plástico, balanças douradas genéricas 3D ou fotos stock de pessoas americanas em tribunais.
    - Todo material visual deve valorizar os retratos reais dos advogados Dr. André e Dra. Isis, a elegância do monograma `JA` original e o acolhimento do segurado.
-3. **Lead Tracking Obrigatório no WhatsApp:**
-   - Nenhum link para o WhatsApp pode ser aberto em branco. Deve conter o parâmetro `?text=` com a mensagem pré-formatada indicando o ponto de origem exato (Hero, Benefício Incapacidade, Planejamento, Aposentadoria Especial, Quiz Interativo ou Rodapé).
+3. **Lead Tracking Obrigatório no WhatsApp & Automação de Marcadores:**
+   - Todo link para o WhatsApp deve conter o parâmetro `?text=` com a mensagem pré-formatada começando **obrigatoriamente com o prefixo:** `Olá, vim pelo site e ...` seguido do contexto específico (ex: agendamento consultivo, modal de área, diagnóstico/quiz, artigo lido ou dúvida geral).
+   - **Regra de CRM:** O sistema de automação e marcadores de leads do escritório depende do gatilho textual *"vim pelo site"* para identificar a origem e aplicar os fluxos automatizados de atendimento.
 4. **Conformidade Estrita com o Provimento nº 205/2021 do CFOAB:**
    - **Caráter Meramente Informativo (Art. 2º):** Conteúdo focado na educação e esclarecimento de direitos previdenciários, com sobriedade e moderação.
    - **Vedação de Mercantilização (Art. 3º e 4º):** Proibição total de preços, gratuidades, descontos ou formas de pagamento no website voltado aos segurados.
