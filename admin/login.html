@@ -161,8 +161,14 @@
       lucide.createIcons();
     }
 
+    async function sha256(text) {
+      const enc = new TextEncoder().encode(text);
+      const buf = await crypto.subtle.digest('SHA-256', enc);
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
     // Processamento do Login
-    function handleLogin(e) {
+    async function handleLogin(e) {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
@@ -170,17 +176,20 @@
       const errorMsg = document.getElementById('login-error-msg');
       const btnSubmit = document.getElementById('btn-submit');
 
-      // Validação de credenciais administrativas
-      const customPass = localStorage.getItem('ja_admin_password');
-      const validPass = customPass || 'janeiro@2026';
+      // Hash de validação seguro (SHA-256) — senha nunca fica exposta em texto puro no código fonte
+      const DEFAULT_HASH = '4887073f1c5de94a7e4bd2f01beca455483ab956b20f857eae5cfee6bdb5a8ba';
+      const customHash = localStorage.getItem('ja_admin_hash');
+      const validHash = customHash || DEFAULT_HASH;
 
       // Feedback de carregamento
       btnSubmit.disabled = true;
       btnSubmit.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Verificando...</span>';
       lucide.createIcons();
 
+      const inputHash = await sha256(password);
+
       setTimeout(() => {
-        if (password === validPass) {
+        if (inputHash === validHash) {
           // Salvar sessão
           const sessionData = {
             user: email,
